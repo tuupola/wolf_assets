@@ -83,6 +83,11 @@ function assets_latest($limit = 0) {
     arsort($sorted_array);
     
     foreach (array_keys($sorted_array) as $file) {
+        /* Ignore directories. */
+        /* TODO: Make this recursive. */
+        if (is_dir($file)) {
+            continue;
+        }
         /* Do not include thumbnails. */
         if (!strpos($file, '.64c.')) {
             $path_parts = pathinfo($file);
