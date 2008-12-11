@@ -1,0 +1,21 @@
+.pages .page {
+	margin-left: 150px;
+	position: relative;
+	right: 150px;
+}
+
+div#assets {
+  	width: 150px;
+  	position: absolute;
+}
+
+div#assets img,
+.asset_list img {
+    border: 1px solid #ccc;
+    padding: 2px;
+    margin: 2px 0px 0px 0px;
+}
+
+#content textarea {
+    height: 290px;
+}
