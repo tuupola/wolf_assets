@@ -11,20 +11,28 @@
  *
  */
  
- jQuery(document).ready(function() {
+jQuery(function($) {
     
     /* Run only when editing a page. */
-    if (jQuery('#page-1 textarea').size()) {
-        jQuery('#pages')
+    if ($('#page-1 textarea').size()) {
+        $('#pages')
             .prepend('<div id="assets"><img src="../frog/plugins/assets/images/indicator.gif" /></div>');
 
-        var left = jQuery('#page-1 textarea').offset().left + jQuery('#page-1 textarea').outerWidth() + 5;
-        var top  = jQuery('#page-1 textarea').offset().top - 1 ;
+        var left = $('#page-1 textarea').offset().left + jQuery('#page-1 textarea').outerWidth() + 5;
+        var top  = $('#page-1 textarea').offset().top - 1 ;
 
-        jQuery('#assets')
+        $('#assets')
             .load('/admin/?/plugin/assets/latest')
             .css('top', top)
             .css('left', left);      
     }
+    
+    $(window).bind('resize', function() {
+        var left = $('#page-1 textarea').offset().left + $('#page-1 textarea').outerWidth() + 5;
+        var top  = $('#page-1 textarea').offset().top - 1 ;
+        $('#assets')
+            .css('top', top)
+            .css('left', left);              
+    })
     
 });
