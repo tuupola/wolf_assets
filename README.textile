@@ -8,7 +8,7 @@ Includes simple interface for uploading images.
 
 !http://www.appelsiini.net/assets/2008/12/11/assets_admin.png!
 
-*Code is pretty much beta quality. Wrote in one afternoon because I needed it. Configuration options will follow later.*
+*Code is pretty much beta quality. Written in one afternoon because I needed it. Configuration options will follow later.*
 
 h3. Install
 
