@@ -20,9 +20,16 @@ class AssetsController extends PluginController
         if (!(AuthUser::isLoggedIn())) {
             redirect(get_url('login'));            
         }
+        
+        $_SESSION['asset_folder'] = isset($_SESSION['asset_folder']) ?
+                                          $_SESSION['asset_folder']  : 'assets';
 
         $this->setLayout('backend');
-        $this->assignToLayout('sidebar', new View('../../plugins/assets/views/sidebar'));
+        if (version_compare(FROG_VERSION, '0.9.5', '<')) {
+            $this->assignToLayout('sidebar', new View('../../../plugins/assets/views/sidebar'));            
+        } else {
+            $this->assignToLayout('sidebar', new View('../../plugins/assets/views/sidebar'));            
+        }
      
     }
 
