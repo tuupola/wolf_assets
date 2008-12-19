@@ -28,3 +28,4 @@ Plugin::setInfos(array(
 if (class_exists('AutoLoader')) {
     Plugin::addController('assets', 'Assets');
 } 
+

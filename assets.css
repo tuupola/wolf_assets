@@ -1,16 +1,35 @@
+
 .pages .page {
 	margin-left: 150px;
 	position: relative;
 	right: 150px;
 }
 
-div#assets {
+/* This would show the sidebar. 
+#body_page_index #content-wrapper,
+#body_page_add #content-wrapper,
+#body_page_edit #content-wrapper {
+    margin-right:1% !important; 
+    width:70% !important;
+}
+
+#body_page_index #sidebar-wrapper,
+#body_page_add #sidebar-wrapper,
+#body_page_edit #sidebar-wrapper {
+    display: block !important;
+}
+*/
+.small {
+    font-size: 12px;
+}
+
+div#assets_page {
   	width: 150px;
   	position: absolute; 
 }
 
-div#assets img,
-.asset_list img {
+#assets_page img,
+#assets_list img {
     border: 1px solid #ccc;
     padding: 2px;
     margin: 2px 0px 0px 0px;

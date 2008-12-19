@@ -22,14 +22,81 @@ class AssetsController extends PluginController
         }
 
         $this->setLayout('backend');
-        #$this->assignToLayout('sidebar', new View('../../../plugins/dashboard/views/sidebar'));
+        $this->assignToLayout('sidebar', new View('../../plugins/assets/views/sidebar'));
+     
     }
 
     function index() {
         $this->display('assets/views/index', array(
-            'image_array' => assets_latest()
+            'image_array' => assets_latest(0, $_SESSION['asset_folder']),
+            'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
         ));
     }
+    
+    function settings() {
+        $this->display('assets/views/settings', array(
+			'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
+		));
+		
+    }
+    
+    function folder($command, $id) {
+        
+        $assets_folder_list = unserialize(Setting::get('assets_folder_list'));
+        
+        $pdo   = Record::getConnection();
+		$table = TABLE_PREFIX . 'setting';
+
+        switch ($command) {
+        case "delete":
+            unset($assets_folder_list[$id]);
+            $assets_folder_list = serialize($assets_folder_list);
+    		
+            $sql   = "UPDATE $table 
+                      SET value ='$assets_folder_list' 
+                      WHERE name = 'assets_folder_list'"; 
+
+            $statement = $pdo->prepare($sql);
+            $success   = $statement->execute() !== false;
+
+            if ($success){
+                Flash::set('success', __('Folder was removed from list.'));
+            } else {
+                Flash::set('error', 'An error has occured.');
+            }
+            break;
+        default:
+            break;
+        }
+        
+
+        redirect(get_url('plugin/assets/settings'));
+    }
+    
+    function save() {
+		error_reporting(E_ALL);
+    
+        /* Setting::saveFromData() does not handle any errors so lets save manually. */
+
+        $pdo   = Record::getConnection();
+		$table = TABLE_PREFIX . 'setting';
+
+		$assets_folder_list = serialize($_POST['assets_folder_list']);
+        $sql   = "UPDATE $table 
+                  SET value ='$assets_folder_list' 
+                  WHERE name = 'assets_folder_list'"; 
+
+        $statement = $pdo->prepare($sql);
+        $success   = $statement->execute() !== false;
+
+        if ($success){
+            Flash::set('success', __('The settings have been updated.'));
+        } else {
+            Flash::set('error', 'An error has occured.');
+        }
+
+        redirect(get_url('plugin/assets/settings'));   
+	}
     
     function upload() {
         
@@ -39,7 +106,11 @@ class AssetsController extends PluginController
         $error_message[3] = "File was only partially uploaded.";
         $error_message[4] = "Choose a file to upload.";
         
-        $upload_dir  = $_SERVER['DOCUMENT_ROOT'] . '/assets/';
+        /* Use later for remembering the pulldown value. */
+        $_SESSION['asset_folder'] = $_POST['asset_folder'];
+        
+        $upload_dir  = $_SERVER['DOCUMENT_ROOT'] . '/' . $_POST['asset_folder'] . '/';
+        $upload_dir  = str_replace('//', '/', $upload_dir);
         $upload_file = $upload_dir . basename($_FILES['user_file']['name']);
         
         if (is_uploaded_file($_FILES['user_file']['tmp_name'])) {
@@ -55,25 +126,34 @@ class AssetsController extends PluginController
         redirect(get_url('plugin/assets'));         
     }
     
-    function latest() {
-
-        $limit = 0;
+    function latest($limit=0, $folder) {
+        $folder = str_replace(':', '/', $folder);
         if ('AJAX' == get_request_method()) {
             $this->setLayout(null);
-            $limit = 8;
         } 
 
         $this->display('assets/views/latest', array(
-            'image_array' => assets_latest($limit)
+            'image_array' => assets_latest($limit, $folder)
         ));
     }
    
 }
 
-function assets_latest($limit = 0) {
+function assets_latest($limit = 0, $folder='assets') {
 
-    $image_array  = array();
-    $file_array   = glob($_SERVER['DOCUMENT_ROOT'] . '/assets/*.*');
+    if ('all' == $folder) {
+        $folder_list = unserialize(Setting::get('assets_folder_list'));
+    } else {
+        $folder_list = array($folder);
+    }
+
+    $file_array  = array();
+
+    foreach ($folder_list as $folder) {
+        $asset_folder = $_SERVER['DOCUMENT_ROOT'] . '/' .  $folder . '/';
+        $asset_folder = str_replace('//', '/', $asset_folder);
+        $file_array = array_merge($file_array, glob($asset_folder . '*.*'));
+    }
 
     /* Sort by modification time. */
     $sorted_array = array();
@@ -81,6 +161,8 @@ function assets_latest($limit = 0) {
         $sorted_array[$file] = filemtime($file);
     }
     arsort($sorted_array);
+
+    $image_array = array();
     
     foreach (array_keys($sorted_array) as $file) {
         /* Ignore directories. */
