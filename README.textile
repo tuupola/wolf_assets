@@ -27,34 +27,17 @@ cd frog/plugins/
 git clone git://github.com/tuupola/frog_assets.git assets
 </pre>
 
-You also need Peter Gassners excellent "Image Resize":http://github.com/naehrstoff/image_resize/ plugin.
+You also need Peter Gassners excellent "Image Resize":http://github.com/naehrstoff/image_resize/ plugin and my "jQuery":http://github.com/tuupola/frog_jquery plugin.
 
 <pre>
 cd frog/plugins/
 git clone git://github.com/naehrstoff/image_resize.git image_resize
 </pre>
 
-Go to admin and enable Assets and Image Resize plugins. Last thing is to add jQuery to backend template. Currently you need to do this by hand.
-
 <pre>
-cd frog/app/backend/layouts/
-mate backend.php
-</pre>
+cd frog/plugins/
+git clone git://github.com/tuupola/frog_jquery.git jquery
+</pre>    
 
-After
-
-<pre>
-<script type="text/javascript" charset="utf-8" src="javascripts/control.textarea.js"></script>
-</pre>
-
-add following lines:
-
-<pre>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
-<script>
-  jQuery.noConflict();
-</script>
-</pre>
-
-Now you are set to go. 
+Go to admin and enable Assets and Image Resize and jQuery plugins. Now you are set to go. 
 
