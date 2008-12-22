@@ -2,9 +2,9 @@
 <input name="user_file" type="file" />
 <input type="submit" />
 <span class="small"><?php print __('upload to:') ?></span>
-<select name="asset_folder">
+<select name="assets_folder">
   <?php foreach ($assets_folder_list as $folder): ?>
-  <option value="<?php print $folder ?>" <?php if ($folder == $_SESSION['asset_folder']) print 'selected="selected"'; ?>><?php print $folder ?></option> 
+  <option value="<?php print $folder ?>" <?php if ($folder == $_SESSION['assets_folder']) print 'selected="selected"'; ?>><?php print $folder ?></option> 
   <?php endforeach; ?>
 </select>
 </form>

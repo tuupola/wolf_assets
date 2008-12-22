@@ -21,8 +21,8 @@ class AssetsController extends PluginController
             redirect(get_url('login'));            
         }
         
-        $_SESSION['asset_folder'] = isset($_SESSION['asset_folder']) ?
-                                          $_SESSION['asset_folder']  : 'assets';
+        $_SESSION['assets_folder'] = isset($_SESSION['assets_folder']) ?
+                                          $_SESSION['assets_folder']  : 'assets';
 
         $this->setLayout('backend');
         if (version_compare(FROG_VERSION, '0.9.5', '<')) {
@@ -35,7 +35,7 @@ class AssetsController extends PluginController
 
     function index() {
         $this->display('assets/views/index', array(
-            'image_array' => assets_latest(0, $_SESSION['asset_folder']),
+            'image_array' => assets_latest(0, $_SESSION['assets_folder']),
             'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
         ));
     }
@@ -119,9 +119,9 @@ class AssetsController extends PluginController
         $error_message[4] = "Choose a file to upload.";
         
         /* Use later for remembering the pulldown value. */
-        $_SESSION['asset_folder'] = $_POST['asset_folder'];
+        $_SESSION['assets_folder'] = $_POST['assets_folder'];
         
-        $upload_dir  = $_SERVER['DOCUMENT_ROOT'] . '/' . $_POST['asset_folder'] . '/';
+        $upload_dir  = $_SERVER['DOCUMENT_ROOT'] . '/' . $_POST['assets_folder'] . '/';
         $upload_dir  = str_replace('//', '/', $upload_dir);
         $upload_file = $upload_dir . basename($_FILES['user_file']['name']);
         
@@ -162,9 +162,9 @@ function assets_latest($limit = 0, $folder='assets') {
     $file_array  = array();
 
     foreach ($folder_list as $folder) {
-        $asset_folder = $_SERVER['DOCUMENT_ROOT'] . '/' .  $folder . '/';
-        $asset_folder = str_replace('//', '/', $asset_folder);
-        $file_array = array_merge($file_array, glob($asset_folder . '*.*'));
+        $assets_folder = $_SERVER['DOCUMENT_ROOT'] . '/' .  $folder . '/';
+        $assets_folder = str_replace('//', '/', $assets_folder);
+        $file_array = array_merge($file_array, glob($assets_folder . '*.*'));
     }
 
     /* Sort by modification time. */

@@ -27,7 +27,7 @@ jQuery(function($) {
     });
     
     /* When is Assets tab reload assets list according to pulldown. */
-    $("select[name='asset_folder']").bind('change', function() {
+    $("select[name='assets_folder']").bind('change', function() {
         var folder = $(this).val().replace(/\//, ':');
         $("#assets_list").load('/admin/?/plugin/assets/latest/0/' + folder);
     });
