@@ -2,11 +2,11 @@ h3. What?
 
 "Mephisto":http://www.mephistoblog.com/ style asset management for "Frog CMS":http://www.madebyfrog.com/. You can drag thumbnail to body text to insert full URL to image.
 
-!http://www.appelsiini.net/assets/2008/12/11/assets_page.png!
+!http://www.appelsiini.net/assets/2008/12/22/assets_page.png!
 
 Includes simple interface for uploading images.
 
-!http://www.appelsiini.net/assets/2008/12/11/assets_admin.png!
+!http://www.appelsiini.net/assets/2008/12/22/assets_upload.png!
 
 *Code is pretty much beta quality. Written in one afternoon because I needed it. Configuration options will follow later.*
 
