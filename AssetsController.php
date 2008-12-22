@@ -43,10 +43,16 @@ class AssetsController extends PluginController
     function settings() {
         $this->display('assets/views/settings', array(
 			'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
-		));
-		
+		));	
     }
-    
+
+    function pulldown() {
+        $this->setLayout(null);
+        $this->display('assets/views/pulldown', array(
+			'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
+		));	
+    }
+
     function folder($command, $id) {
         
         $assets_folder_list = unserialize(Setting::get('assets_folder_list'));
@@ -71,12 +77,11 @@ class AssetsController extends PluginController
             } else {
                 Flash::set('error', 'An error has occured.');
             }
-            break;
+            break;          
         default:
             break;
         }
         
-
         redirect(get_url('plugin/assets/settings'));
     }
     
@@ -147,7 +152,7 @@ class AssetsController extends PluginController
 }
 
 function assets_latest($limit = 0, $folder='assets') {
-
+    
     if ('all' == $folder) {
         $folder_list = unserialize(Setting::get('assets_folder_list'));
     } else {

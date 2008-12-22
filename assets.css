@@ -28,6 +28,15 @@ div#assets_page {
   	position: absolute; 
 }
 
+#assets_folder {
+  	width: 150px;
+  	position: absolute; 
+}
+
+#assets_folder > select {
+  	width: 150px;
+} 
+
 #assets_page img,
 #assets_list img {
     border: 1px solid #ccc;
