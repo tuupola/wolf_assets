@@ -36,14 +36,13 @@ jQuery(function($) {
     if ($('#page-1 textarea').size()) {
         $('#pages')
             .prepend('<div id="assets_page"><img src="../frog/plugins/assets/images/indicator.gif" /></div>')
-            .prepend('<div id="assets_folder"><img src="../frog/plugins/assets/images/indicator.gif" /></div>')
-            ;
+            .prepend('<div id="assets_folder"><img src="../frog/plugins/assets/images/indicator.gif" /></div>');
 
         var left = $('#page-1 textarea').offset().left + jQuery('#page-1 textarea').outerWidth() + 5;
         var top  = $('#page-1 textarea').offset().top - 1 ;
 
         $('#assets_page')
-            .load('/admin/?/plugin/assets/latest/8/all')
+            .load('/admin/?/plugin/assets/latest/8')
             .css('top', top)
             .css('left', left);
 

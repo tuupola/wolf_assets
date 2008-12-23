@@ -20,9 +20,9 @@ class AssetsController extends PluginController
         if (!(AuthUser::isLoggedIn())) {
             redirect(get_url('login'));            
         }
-        
+
         $_SESSION['assets_folder'] = isset($_SESSION['assets_folder']) ?
-                                          $_SESSION['assets_folder']  : 'assets';
+                                           $_SESSION['assets_folder']  : 'assets';
 
         $this->setLayout('backend');
         if (version_compare(FROG_VERSION, '0.9.5', '<')) {
@@ -54,7 +54,6 @@ class AssetsController extends PluginController
     }
 
     function folder($command, $id) {
-        
         $assets_folder_list = unserialize(Setting::get('assets_folder_list'));
         
         $pdo   = Record::getConnection();
@@ -62,23 +61,22 @@ class AssetsController extends PluginController
 
         switch ($command) {
         case "delete":
+            $deleted = $assets_folder_list[$id];
             unset($assets_folder_list[$id]);
             $assets_folder_list = serialize($assets_folder_list);
     		
-            $sql   = "UPDATE $table 
-                      SET value ='$assets_folder_list' 
+            $query = "UPDATE $table 
+                      SET value = '$assets_folder_list' 
                       WHERE name = 'assets_folder_list'"; 
-
-            $statement = $pdo->prepare($sql);
-            $success   = $statement->execute() !== false;
-
-            if ($success){
-                Flash::set('success', __('Folder was removed from list.'));
+                      
+            if ($pdo->exec($query)) {
+                Flash::set('success', __('Folder :deleted was removed from list.', array(':deleted'=>$deleted)));
             } else {
                 Flash::set('error', 'An error has occured.');
             }
             break;          
         default:
+            Flash::set('error', 'Hey! What are you doing?');
             break;
         }
         
@@ -94,17 +92,14 @@ class AssetsController extends PluginController
 		$table = TABLE_PREFIX . 'setting';
 
 		$assets_folder_list = serialize($_POST['assets_folder_list']);
-        $sql   = "UPDATE $table 
+        $query = "UPDATE $table 
                   SET value ='$assets_folder_list' 
                   WHERE name = 'assets_folder_list'"; 
 
-        $statement = $pdo->prepare($sql);
-        $success   = $statement->execute() !== false;
-
-        if ($success){
-            Flash::set('success', __('The settings have been updated.'));
+        if (false === $pdo->exec($query)) {
+            Flash::set('error', __('An error has occured.'));
         } else {
-            Flash::set('error', 'An error has occured.');
+            Flash::set('success', __('The settings have been updated.'));
         }
 
         redirect(get_url('plugin/assets/settings'));   
@@ -138,8 +133,14 @@ class AssetsController extends PluginController
         redirect(get_url('plugin/assets'));         
     }
     
-    function latest($limit=0, $folder) {
+    function latest($limit=0, $folder=null) {
         $folder = str_replace(':', '/', $folder);
+        if (trim($folder)) {
+            $_SESSION['assets_folder'] = $folder;            
+        } else {
+            $folder = $_SESSION['assets_folder'];
+        }
+
         if ('AJAX' == get_request_method()) {
             $this->setLayout(null);
         } 
@@ -178,7 +179,6 @@ function assets_latest($limit = 0, $folder='assets') {
     
     foreach (array_keys($sorted_array) as $file) {
         /* Ignore directories. */
-        /* TODO: Make this recursive. */
         if (is_dir($file)) {
             continue;
         }
