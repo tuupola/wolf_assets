@@ -7,7 +7,7 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *
  * Project home:
- *   http://www.appelsiini.net/
+ *   http://www.appelsiini.net/projects/frog_assets
  *
  */
  
