@@ -1,7 +1,7 @@
 /*
  * Assets - Frog CMS Mephisto style asset management plugin
  *
- * Copyright (c) 2008 Mika Tuupola
+ * Copyright (c) 2008-2009 Mika Tuupola
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -60,6 +60,7 @@ jQuery(function($) {
             .css('left', left_2);
     }
     
+    /* Reposition assets when resizing a window. */
     $(window).bind('resize', function() {
         var left = $('#page-1 textarea').offset().left + $('#page-1 textarea').outerWidth() + 5;
         var top  = $('#page-1 textarea').offset().top - 1 ;
@@ -72,6 +73,11 @@ jQuery(function($) {
         $('#assets_folder')
             .css('top', top_2)
             .css('left', left_2);     
-    })
+    });
     
+    /* Just a shortcut to also reposition when clicking a tab. */
+    $('#tabs-meta > a.tab').bind('click', function() {
+        $(window).trigger('resize');
+    });
+
 });
