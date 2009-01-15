@@ -3,7 +3,7 @@
 /*
  * Assets - Frog CMS Mephisto style asset management plugin
  *
- * Copyright (c) 2008 Mika Tuupola
+ * Copyright (c) 2008-2009 Mika Tuupola
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -17,7 +17,7 @@ Plugin::setInfos(array(
     'id'          => 'assets',
     'title'       => 'Assets', 
     'description' => 'Mephisto style asset management.', 
-    'version'     => '0.3.1', 
+    'version'     => '0.3.2', 
     'license'     => 'MIT',
     'require_frog_version' => '0.9.3',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
@@ -25,7 +25,7 @@ Plugin::setInfos(array(
 ));
 
 /* Stuff for backend. */
-if (class_exists('AutoLoader')) {
+if ('/admin/index.php' == $_SERVER['PHP_SELF']) {
     Plugin::addController('assets', 'Assets');
 } 
 
