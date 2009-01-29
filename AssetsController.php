@@ -187,7 +187,11 @@ function assets_latest($limit = 0, $folder='assets') {
             $path_parts = pathinfo($file);
             $folder     = str_replace($_SERVER['DOCUMENT_ROOT'], '', $path_parts['dirname']) . '/';
             $original   = $folder . $path_parts['basename'];
-            $thumbnail  = $folder . $path_parts['filename'] . '.64c.' . $path_parts['extension'];            
+            if (assets_is_image($path_parts['extension'])) {
+                $thumbnail  = $folder . $path_parts['filename'] . '.64c.' . $path_parts['extension'];                
+            } else {
+                $thumbnail = assets_get_icon($path_parts['extension']);
+            }
             $image_array[$original] = $thumbnail;                
         }
         /* Show maximum limit thumbnails. */
@@ -197,4 +201,34 @@ function assets_latest($limit = 0, $folder='assets') {
     }
     
     return $image_array;
+}
+
+function assets_is_image($extension) {
+    $images = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
+    return in_array($extension, $images);
+}
+
+function assets_get_icon($extension) {
+    switch (strtolower($extension)) {
+        case 'pdf':
+            $retval = 'images/pdf.png';
+            break;
+        case 'mpg':
+        case 'mov':
+        case 'avi':
+        case 'swf':
+        case 'flv':
+            $retval = 'images/video.png';
+            break;
+        case 'mp2':
+        case 'mp3':
+        case 'mpga':
+        case 'wav':
+            $retval = 'images/audio.png';
+            break;    
+        default:
+            $retval = 'images/doc.png';
+            break;
+    }
+    return '../frog/plugins/assets/' . $retval;
 }

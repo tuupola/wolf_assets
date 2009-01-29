@@ -42,6 +42,8 @@ div#assets_page {
     border: 1px solid #ccc;
     padding: 2px;
     margin: 2px 0px 0px 0px;
+    width: 64px;
+    height: 64px;
 }
 
 #content textarea {
