@@ -19,6 +19,7 @@ Plugin::setInfos(array(
     'description' => 'Mephisto style asset management.', 
     'version'     => '0.3.3', 
     'license'     => 'MIT',
+    'author'      => 'Mika Tuupola',
     'require_frog_version' => '0.9.3',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
     'website'     => 'http://www.appelsiini.net/'
