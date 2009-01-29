@@ -39,5 +39,12 @@ cd frog/plugins/
 git clone git://github.com/tuupola/frog_jquery.git jquery
 </pre>    
 
-Go to admin and enable Assets and Image Resize and jQuery plugins. Now you are set to go. 
+Go to admin and enable Assets and Image Resize and jQuery plugins. Now you are set to go.
 
+h3. Changelog
+
+h4. 0.3.3
+
+* Support all fileformats instead of only images.
+* If possible folders are created automatically when adding them in settings.
+* Show filename in tooltip using title attribute.
