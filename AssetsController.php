@@ -70,7 +70,8 @@ class AssetsController extends PluginController
                       WHERE name = 'assets_folder_list'"; 
                       
             if ($pdo->exec($query)) {
-                Flash::set('success', __('Folder :deleted was removed from list.', array(':deleted'=>$deleted)));
+                Flash::set('success', __('Folder :deleted was removed from list. Delete it manually from server.', 
+                                          array(':deleted' => $deleted)));
             } else {
                 Flash::set('error', 'An error has occured.');
             }
@@ -95,11 +96,28 @@ class AssetsController extends PluginController
         $query = "UPDATE $table 
                   SET value ='$assets_folder_list' 
                   WHERE name = 'assets_folder_list'"; 
-
+ 
+        $folder_created = false;
+        foreach ($_POST['assets_folder_list'] as $folder) {
+            $check_folder = $_SERVER['DOCUMENT_ROOT'] . '/' . $folder;
+            if (! file_exists($check_folder)) {
+                if (@mkdir($check_folder)) {
+                    $folder_created = true;
+                } else {
+                    Flash::set('error', __('NOTE! You must create folder :folder manually.', 
+                                            array(':folder' => $check_folder)));                    
+                };
+            }
+        }
+              
         if (false === $pdo->exec($query)) {
             Flash::set('error', __('An error has occured.'));
         } else {
-            Flash::set('success', __('The settings have been updated.'));
+            if ($folder_created) {
+                Flash::set('success', __('Folder has been created and settings have been updated'));                
+            } else {
+                Flash::set('success', __('The settings have been updated.'));                
+            }
         }
 
         redirect(get_url('plugin/assets/settings'));   
