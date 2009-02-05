@@ -6,9 +6,7 @@ h3. What?
 
 Includes simple interface for uploading images.
 
-!http://www.appelsiini.net/assets/2008/12/22/assets_upload.png!
-
-*Code is pretty much beta quality. Written in one afternoon because I needed it. Configuration options will follow later.*
+!http://www.appelsiini.net/assets/2009/2/5/asset_uploaded.png!
 
 h3. Install
 
@@ -27,7 +25,7 @@ cd frog/plugins/
 git clone git://github.com/tuupola/frog_assets.git assets
 </pre>
 
-You also need Peter Gassners excellent "Image Resize":http://github.com/naehrstoff/image_resize/ plugin and my "jQuery":http://github.com/tuupola/frog_jquery plugin.
+You also need Peter Gassners excellent "Image Resize":http://github.com/naehrstoff/image_resize/ plugin and my "jQuery":http://github.com/tuupola/frog_jquery and "jQuery UI":http://github.com/tuupola/frog_jquery_ui plugins.
 
 <pre>
 cd frog/plugins/
@@ -39,7 +37,13 @@ cd frog/plugins/
 git clone git://github.com/tuupola/frog_jquery.git jquery
 </pre>    
 
-Go to admin and enable Assets and Image Resize and jQuery plugins. Now you are set to go.
+<pre>
+cd frog/plugins/
+git clone git://github.com/tuupola/frog_jquery_ui.git jquery_ui
+</pre>    
+
+
+Go to admin and enable Assets and Image Resize, jQuery and jQuery UI plugins. Now you are set to go.
 
 h3. Changelog
 
