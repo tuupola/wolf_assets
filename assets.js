@@ -32,6 +32,18 @@ jQuery(function($) {
         $("#assets_list").load('/admin/?/plugin/assets/latest/0/' + folder);
     });
     
+    /* Make assets draggable in assets tab. */
+    $("#assets_list a").draggable({
+        revert: 'invalid'
+    });
+    $("#trash_can").droppable({
+		drop: function(event, ui) {
+		    var url = '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
+		    $(ui.draggable.context).hide();
+		    $.getScript(url);
+		}
+	});
+	    
     /* Run only when editing a page. */
     if ($('#page-1 textarea').size()) {
         $('#pages')

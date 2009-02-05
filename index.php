@@ -15,14 +15,14 @@
 
 Plugin::setInfos(array(
     'id'          => 'assets',
-    'title'       => 'Assets', 
-    'description' => 'Mephisto style asset management.', 
-    'version'     => '0.3.3', 
+    'title'       => 'Assets',
+    'description' => 'Mephisto style asset management.',
+    'version'     => '0.3.4',
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',
     'require_frog_version' => '0.9.3',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
-    'website'     => 'http://www.appelsiini.net/'
+    'website'     => 'http://www.appelsiini.net/projects/frog_assets'
 ));
 
 /* Stuff for backend. */

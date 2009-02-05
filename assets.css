@@ -1,3 +1,4 @@
+/* @override http://svn.frog.com/frog/plugins/assets/assets.css */
 
 .pages .page {
 	margin-left: 150px;
@@ -46,6 +47,18 @@ div#assets_page {
     height: 64px;
 }
 
+#assets_tools img  {
+    padding: 2px;
+    width: 64px;
+    height: 64px;
+}
+
 #content textarea {
     height: 290px;
 }
+
+#assets_tools {
+  float: right;
+}
+
+

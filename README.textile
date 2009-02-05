@@ -43,6 +43,10 @@ Go to admin and enable Assets and Image Resize and jQuery plugins. Now you are s
 
 h3. Changelog
 
+h4. 0.3.4
+
+* Add trashcan. You can delete assets by dragging them to trashcan.
+
 h4. 0.3.3
 
 * Support all fileformats instead of only images.

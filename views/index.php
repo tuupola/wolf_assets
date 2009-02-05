@@ -13,3 +13,6 @@
   <a href="<?php print $image?>" title="<?php print $image?>"><img src="<?php print $thumbnail ?>" /></a>
   <?php endforeach; ?>
 </p>
+<p id="assets_tools">
+  <img id="trash_can" src="../frog/plugins/assets/images/trash.png" />
+</p>

@@ -84,6 +84,33 @@ class AssetsController extends PluginController
         redirect(get_url('plugin/assets/settings'));
     }
     
+    function file() {
+        $args    = func_get_args();
+        $command = array_shift($args);
+        $asset   = $_SERVER['DOCUMENT_ROOT'] . '/' . implode('/', $args);
+        $asset   = urldecode($asset);
+        switch ($command) {
+        case "delete":
+            if (@unlink($asset)) {
+                print "jQuery('#success').remove();";
+                print "jQuery('#error').remove();";
+                print "jQuery('#content').prepend('<div id=\"success\">Asset deleted.</div>');";
+                print "jQuery('#success').hide().fadeIn('slow');";
+            } else {
+                print "jQuery('#success').remove();";
+                print "jQuery('#error').remove();";
+                print "jQuery('#content').prepend('<div id=\"error\">Could not delete asset.</div>');";
+                print "jQuery('#error').hide().fadeIn('slow');";
+            }
+            break;          
+        default:
+            Flash::set('error', 'Hey! What are you doing?');
+            break;
+        }
+        
+        //redirect(get_url('plugin/assets/settings'));
+    }
+    
     function save() {
 		error_reporting(E_ALL);
     
