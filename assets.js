@@ -29,7 +29,12 @@ jQuery(function($) {
     /* When is Assets tab reload assets list according to pulldown. */
     $("select[name='assets_folder']").bind('change', function() {
         var folder = $(this).val().replace(/\//, ':');
-        $("#assets_list").load('/admin/?/plugin/assets/latest/0/' + folder);
+        $("#assets_list").load('/admin/?/plugin/assets/latest/0/' + folder, null, function() {
+            /* Make assets draggable in assets tab. */
+            $("#assets_list a").draggable({
+                revert: 'invalid'
+            });
+        });
     });
     
     /* Make assets draggable in assets tab. */
@@ -37,17 +42,19 @@ jQuery(function($) {
         revert: 'invalid'
     });
     $("#trash_can").droppable({
-		drop: function(event, ui) {
+        tolerance: 'touch',
+        drop: function(event, ui) {
 		    var url = '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
 		    $(ui.draggable.context).hide();
 		    $.getScript(url);
-		}, 
-		over: function(event, ui) {
-		    $(this).attr('src', '../frog/plugins/assets/images/trash_full.png')
-		},
-		out: function(event, ui) {
 		    $(this).attr('src', '../frog/plugins/assets/images/trash.png')
-		},
+        }, 
+        over: function(event, ui) {
+            $(this).attr('src', '../frog/plugins/assets/images/trash_full.png');
+        },
+        out: function(event, ui) {
+            $(this).attr('src', '../frog/plugins/assets/images/trash.png');
+		}
 	});
 	    
     /* Run only when editing a page. */
