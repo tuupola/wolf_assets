@@ -41,7 +41,13 @@ jQuery(function($) {
 		    var url = '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
 		    $(ui.draggable.context).hide();
 		    $.getScript(url);
-		}
+		}, 
+		over: function(event, ui) {
+		    $(this).attr('src', '../frog/plugins/assets/images/trash_full.png')
+		},
+		out: function(event, ui) {
+		    $(this).attr('src', '../frog/plugins/assets/images/trash.png')
+		},
 	});
 	    
     /* Run only when editing a page. */
