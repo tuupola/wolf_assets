@@ -47,7 +47,7 @@ Go to admin and enable Assets and Image Resize, jQuery and jQuery UI plugins. No
 
 h3. Changelog
 
-h4. 0.3.4
+h4. 0.4.0
 
 * Add trashcan. You can delete assets by dragging them to trashcan.
 
