@@ -12,6 +12,9 @@
  */
  
 jQuery(function($) {
+        
+    /* If you are running 0.9.4 or older edit line below by hand. */
+    /* var frog_root = ''; */
     
     /* Settings tab stuff. */  
     $("img.assets-folder-add").bind('click', function() {
@@ -29,7 +32,7 @@ jQuery(function($) {
     /* When is Assets tab reload assets list according to pulldown. */
     $("select[name='assets_folder']").bind('change', function() {
         var folder = $(this).val().replace(/\//, ':');
-        $("#assets_list").load('/admin/?/plugin/assets/latest/0/' + folder, null, function() {
+        $("#assets_list").load(frog_root + '/admin/?/plugin/assets/latest/0/' + folder, null, function() {
             /* Make assets draggable in assets tab. */
             $("#assets_list a").draggable({
                 revert: 'invalid'
@@ -44,7 +47,7 @@ jQuery(function($) {
     $("#trash_can").droppable({
         tolerance: 'touch',
         drop: function(event, ui) {
-		    var url = '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
+		    var url = frog_root + '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
 		    $(ui.draggable.context).hide();
 		    $.getScript(url);
 		    $(this).attr('src', '../frog/plugins/assets/images/trash.png')
@@ -67,7 +70,7 @@ jQuery(function($) {
         var top  = $('#page-1 textarea').offset().top - 1 ;
 
         $('#assets_page')
-            .load('/admin/?/plugin/assets/latest/8')
+            .load(frog_root + '/admin/?/plugin/assets/latest/8')
             .css('top', top)
             .css('left', left);
 
@@ -75,10 +78,10 @@ jQuery(function($) {
         var top_2  = $('#part-1 > p > select').offset().top;
 
         $('#assets_folder')
-            .load('/admin/?/plugin/assets/pulldown', function() {
+            .load(frog_root + '/admin/?/plugin/assets/pulldown', function() {
                 $('select', this).bind('change', function() {
                     var folder = $(this).val().replace(/\//, ':');
-                    $("#assets_page").load('/admin/?/plugin/assets/latest/8/' + folder);
+                    $("#assets_page").load(frog_root + '/admin/?/plugin/assets/latest/8/' + folder);
                 });
             })
             .css('top', top_2)

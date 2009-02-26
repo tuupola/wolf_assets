@@ -26,7 +26,19 @@ Plugin::setInfos(array(
 ));
 
 /* Stuff for backend. */
-if ('/admin/index.php' == $_SERVER['PHP_SELF']) {
+if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
     Plugin::addController('assets', 'Assets');
-} 
+    Observer::observe('view_backend_list_plugin', 'assets_inject_javascript');  
+}
 
+function assets_inject_javascript($plugin_name, $plugin) {
+    if ('assets' == $plugin_name) {
+        print '<script type="text/javascript" charset="utf-8">';
+        printf("var frog_root = '%s';", assets_frog_root());
+        print '</script>';        
+    }
+}
+
+function assets_frog_root() {
+    return str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(FROG_ROOT));
+}
