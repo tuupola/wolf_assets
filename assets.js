@@ -13,9 +13,10 @@
  
 jQuery(function($) {
         
-    /* If you are running 0.9.4 or older edit line below by hand. */
+    /* If you are running 0.9.4 or older and you installed Frog */
+    /* somewhere else than document root edit line below by hand. */
     /* var frog_root = ''; */
-    
+
     /* Settings tab stuff. */  
     $("img.assets-folder-add").bind('click', function() {
         $(this)
@@ -31,7 +32,7 @@ jQuery(function($) {
     
     /* When is Assets tab reload assets list according to pulldown. */
     $("select[name='assets_folder']").bind('change', function() {
-        var folder = $(this).val().replace(/\//, ':');
+        var folder = $(this).val().replace(/\//g, ':');
         $("#assets_list").load(frog_root + '/admin/?/plugin/assets/latest/0/' + folder, null, function() {
             /* Make assets draggable in assets tab. */
             $("#assets_list a").draggable({
@@ -80,7 +81,7 @@ jQuery(function($) {
         $('#assets_folder')
             .load(frog_root + '/admin/?/plugin/assets/pulldown', function() {
                 $('select', this).bind('change', function() {
-                    var folder = $(this).val().replace(/\//, ':');
+                    var folder = $(this).val().replace(/\//g, ':');
                     $("#assets_page").load(frog_root + '/admin/?/plugin/assets/latest/8/' + folder);
                 });
             })
