@@ -26,7 +26,7 @@ Plugin::setInfos(array(
 ));
 
 /* Stuff for backend. */
-if (strpos($_SERVER['PHP_SELF'], 'admin/index.php')) {
+if (strpos($_SERVER['PHP_SELF'], ADMIN_DIR . '/index.php')) {
     Plugin::addController('assets', 'Assets');
     Observer::observe('view_backend_list_plugin', 'assets_inject_javascript');  
 }
