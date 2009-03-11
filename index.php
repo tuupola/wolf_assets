@@ -40,5 +40,5 @@ function assets_inject_javascript($plugin_name, $plugin) {
 }
 
 function assets_frog_root() {
-    return str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(FROG_ROOT));
+    return str_replace(realpath($_SERVER['DOCUMENT_ROOT']), '', realpath(FROG_ROOT));
 }
