@@ -15,7 +15,7 @@ jQuery(function($) {
         
     /* If you are running 0.9.4 or older and you installed Frog */
     /* somewhere else than document root edit line below by hand. */
-    /* var frog_root = ''; */
+    var frog_root = '';
 
     /* Settings tab stuff. */  
     $("img.assets-folder-add").bind('click', function() {
@@ -62,21 +62,22 @@ jQuery(function($) {
 	});
 	    
     /* Run only when editing a page. */
-    if ($('#page-1 textarea').size()) {
+    console.log($('.part > p > select'));
+    if ($('.page textarea').size()) {
         $('#pages')
             .prepend('<div id="assets_page"><img src="../frog/plugins/assets/images/indicator.gif" /></div>')
             .prepend('<div id="assets_folder"><img src="../frog/plugins/assets/images/indicator.gif" /></div>');
 
-        var left = $('#page-1 textarea').offset().left + jQuery('#page-1 textarea').outerWidth() + 5;
-        var top  = $('#page-1 textarea').offset().top - 1 ;
+        var left = $('.page textarea:visible').offset().left + $('.page textarea:visible').outerWidth() + 5;
+        var top  = $('.page textarea:visible').offset().top - 1 ;
 
         $('#assets_page')
             .load(frog_root + '/admin/?/plugin/assets/latest/8')
             .css('top', top)
             .css('left', left);
 
-        var left_2 = $('#page-1 textarea').offset().left + jQuery('#page-1 textarea').outerWidth() + 5;
-        var top_2  = $('#part-1 > p > select').offset().top;
+        var left_2 = $('.page textarea:visible').offset().left + $('.page textarea:visible').outerWidth() + 5;
+        var top_2  = $('.part > p > select:visible').offset().top;
 
         $('#assets_folder')
             .load(frog_root + '/admin/?/plugin/assets/pulldown', function() {
