@@ -230,6 +230,11 @@ function assets_latest($limit = 0, $folder='assets') {
         /* Do not include thumbnails. */
         if (!strpos($file, '.64c.')) {
             $path_parts = pathinfo($file);
+            /* Support for PHP older than 5.2.0 */
+            if (empty($path_parts['filename'])) {
+                $path_parts['filename'] = basename($file, '.' . $path_parts['extension']);                                
+            }
+
             $folder     = str_replace($_SERVER['DOCUMENT_ROOT'], '', $path_parts['dirname']) . '/';
             $original   = $folder . $path_parts['basename'];
             if (assets_is_image($path_parts['extension'])) {
