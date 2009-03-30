@@ -14,8 +14,8 @@
 jQuery(function($) {
         
     /* If you are running 0.9.4 or older and you installed Frog */
-    /* somewhere else than document root edit line below by hand. */
-    var frog_root = '';
+    /* somewhere else than document root uncomment and edit line below by hand. */
+    /* var frog_root = ''; */
 
     /* Settings tab stuff. */  
     $("img.assets-folder-add").bind('click', function() {
