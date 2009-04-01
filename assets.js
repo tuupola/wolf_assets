@@ -62,7 +62,6 @@ jQuery(function($) {
 	});
 	    
     /* Run only when editing a page. */
-    console.log($('.part > p > select'));
     if ($('.page textarea').size()) {
         $('#pages')
             .prepend('<div id="assets_page"><img src="../frog/plugins/assets/images/indicator.gif" /></div>')
