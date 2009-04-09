@@ -25,7 +25,7 @@ class AssetsController extends PluginController
                                            $_SESSION['assets_folder']  : 'assets';
 
         $this->setLayout('backend');
-        if (version_compare(FROG_VERSION, '0.9.5', '<')) {
+        if (version_compare(FROG_VERSION, '0.9.4', '<=')) {
             $this->assignToLayout('sidebar', new View('../../../plugins/assets/views/sidebar'));            
         } else {
             $this->assignToLayout('sidebar', new View('../../plugins/assets/views/sidebar'));            
