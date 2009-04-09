@@ -47,6 +47,20 @@ Go to admin and enable Assets and Image Resize, jQuery and jQuery UI plugins. No
 
 h3. Changelog
 
+h4. 0.4.4
+
+* 0.9.5RC2 tried to use wrong views folder.
+
+h4. 0.4.3
+
+* Remove forgotten call to console.log() which caused IE to fail.
+
+h4. 0.4.2
+
+* Support for PHP older than 5.2.0.
+* Fix problem of thumbnails moving to upper left corner after editing page 
+with non default tab open.
+
 h4. 0.4.1
 
 * Fix problems when Frog is not installed in document root.
