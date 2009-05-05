@@ -22,7 +22,7 @@ class AssetsController extends PluginController
         }
 
         $_SESSION['assets_folder'] = isset($_SESSION['assets_folder']) ?
-                                           $_SESSION['assets_folder']  : 'assets';
+                                           $_SESSION['assets_folder'] : assets_default_folder();
 
         $this->setLayout('backend');
         if (version_compare(FROG_VERSION, '0.9.4', '<=')) {
@@ -235,8 +235,10 @@ function assets_latest($limit = 0, $folder='assets') {
                 $path_parts['filename'] = basename($file, '.' . $path_parts['extension']);                                
             }
 
-            $folder     = str_replace($_SERVER['DOCUMENT_ROOT'], '', $path_parts['dirname']) . '/';
-            $original   = $folder . $path_parts['basename'];
+            $folder   = '/' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $path_parts['dirname']) . '/';
+            $folder   = str_replace('//', '/', $folder);
+            $original = $folder . $path_parts['basename'];
+            
             if (assets_is_image($path_parts['extension'])) {
                 $thumbnail  = $folder . $path_parts['filename'] . '.64c.' . $path_parts['extension'];                
             } else {
@@ -281,4 +283,9 @@ function assets_get_icon($extension) {
             break;
     }
     return '../frog/plugins/assets/' . $retval;
+}
+
+function assets_default_folder() {
+    $assets_folder_list = unserialize(Setting::get('assets_folder_list'));
+    return $assets_folder_list[0];
 }
