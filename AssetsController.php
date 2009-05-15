@@ -72,8 +72,12 @@ class AssetsController extends PluginController
             if ($pdo->exec($query)) {
                 Flash::set('success', __('Folder :deleted was removed from list. Delete it manually from server.', 
                                           array(':deleted' => $deleted)));
+                $message = sprintf('Asset manager settings were updated by [username].');
+                Observer::notify('log_event', $message, 5, 'assets');                              
             } else {
                 Flash::set('error', 'An error has occured.');
+                $message = sprintf('Updating asset manager settings by [username] failed.');
+                Observer::notify('log_event', $message, 2, 'assets');
             }
             break;          
         default:
