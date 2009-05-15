@@ -34,6 +34,7 @@ class AssetsController extends PluginController
     }
 
     function index() {
+        assets_check_gd_support(); 
         $this->display('assets/views/index', array(
             'image_array' => assets_latest(0, $_SESSION['assets_folder']),
             'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
@@ -41,6 +42,7 @@ class AssetsController extends PluginController
     }
     
     function settings() {
+        assets_check_gd_support(); 
         $this->display('assets/views/settings', array(
 			'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
 		));	
@@ -315,4 +317,16 @@ function assets_get_icon($extension) {
 function assets_default_folder() {
     $assets_folder_list = unserialize(Setting::get('assets_folder_list'));
     return $assets_folder_list[0];
+}
+
+function assets_check_gd_support() {
+    $needed   = array('GIF Read Support', 'JPG Support', 'PNG Support');
+    $provided = gd_info();
+    foreach ($needed as $item) {
+        if (!$provided[$item]) {
+            Flash::set('error', __('Your system does not have :item. Assets manager will not work properly.', 
+                             array(':item' => $item)));
+            Flash::init();               
+        }
+    }
 }
