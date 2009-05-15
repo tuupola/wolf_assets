@@ -94,21 +94,26 @@ class AssetsController extends PluginController
             if (@unlink($asset)) {
                 print "jQuery('#success').remove();";
                 print "jQuery('#error').remove();";
-                print "jQuery('#content').prepend('<div id=\"success\">Asset deleted.</div>');";
+                print "jQuery('#content').prepend('<div id=\"success\">File deleted.</div>');";
                 print "jQuery('#success').hide().fadeIn('slow');";
+                $message = sprintf('File %s was deleted by [username].',
+                                   basename($asset));
+                Observer::notify('log_event', $message, 5, 'assets');
             } else {
                 print "jQuery('#success').remove();";
                 print "jQuery('#error').remove();";
-                print "jQuery('#content').prepend('<div id=\"error\">Could not delete asset.</div>');";
+                print "jQuery('#content').prepend('<div id=\"error\">Could not delete file.</div>');";
                 print "jQuery('#error').hide().fadeIn('slow');";
+                $message = sprintf('Deleting file %s by [username] failed. %s',
+                                   basename($asset),
+                                   $error_message[$_FILES['user_file']['error']]);
+                Observer::notify('log_event', $message, 3, 'assets');             
             }
             break;          
         default:
             Flash::set('error', 'Hey! What are you doing?');
             break;
         }
-        
-        //redirect(get_url('plugin/assets/settings'));
     }
     
     function save() {
@@ -139,12 +144,16 @@ class AssetsController extends PluginController
               
         if (false === $pdo->exec($query)) {
             Flash::set('error', __('An error has occured.'));
+            $message = sprintf('Updating asset manager settings by [username] failed.');
+            Observer::notify('log_event', $message, 2, 'assets');
         } else {
             if ($folder_created) {
                 Flash::set('success', __('Folder has been created and settings have been updated'));                
             } else {
                 Flash::set('success', __('The settings have been updated.'));                
             }
+            $message = sprintf('Asset manager settings were updated by [username].');
+            Observer::notify('log_event', $message, 5, 'assets');
         }
 
         redirect(get_url('plugin/assets/settings'));   
@@ -152,7 +161,7 @@ class AssetsController extends PluginController
     
     function upload() {
         
-        $error_message[0] = "Unknown problem with your upload.";
+        $error_message[0] = "Unknown problem with upload.";
         $error_message[1] = "Uploaded file too large (load_max_filesize).";
         $error_message[2] = "Uploaded file too large (MAX_FILE_SIZE).";
         $error_message[3] = "File was only partially uploaded.";
@@ -167,12 +176,26 @@ class AssetsController extends PluginController
         
         if (is_uploaded_file($_FILES['user_file']['tmp_name'])) {
             if (move_uploaded_file($_FILES['user_file']['tmp_name'], $upload_file)) {
+
                 Flash::set('success', 'File ' . basename($_FILES['user_file']['name']) . ' uploaded.');
+
+                $message = sprintf('File %s was uploaded by [username].',
+                                   basename($_FILES['user_file']['name']));
+                Observer::notify('log_event', $message, 5, 'assets');
+
             } else {
                 Flash::set('error', $error_message[$_FILES['user_file']['error']]);
+                $message = sprintf('Uploading file %s by [username] failed. %s',
+                                   basename($asset),
+                                   $error_message[$_FILES['user_file']['error']]);
+                Observer::notify('log_event', $message, 3, 'assets');
             }     
         } else {
             Flash::set('error', $error_message[$_FILES['user_file']['error']]);
+            $message = sprintf('Uploading file %s by [username] failed. %s',
+                               basename($asset),
+                               $error_message[$_FILES['user_file']['error']]);
+            Observer::notify('log_event', $message, 3, 'assets');
         }
         
         redirect(get_url('plugin/assets'));         
