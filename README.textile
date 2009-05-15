@@ -51,6 +51,9 @@ h4. 0.4.5
 
 * Fix odd problem of empty white boxes with 0.9.5RC2.
 * Prevent direct access to enable and disable scripts.
+* Log file upload and download events to dashboard.
+* Log settings change events to dashboard.
+* Display warning if system GD does not have jpg, gif or png support.
 
 h4. 0.4.4
 
