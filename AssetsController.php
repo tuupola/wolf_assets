@@ -72,11 +72,11 @@ class AssetsController extends PluginController
             if ($pdo->exec($query)) {
                 Flash::set('success', __('Folder :deleted was removed from list. Delete it manually from server.', 
                                           array(':deleted' => $deleted)));
-                $message = sprintf('Asset manager settings were updated by [username].');
+                $message = sprintf('Asset manager settings were updated by :username.');
                 Observer::notify('log_event', $message, 5, 'assets');                              
             } else {
                 Flash::set('error', 'An error has occured.');
-                $message = sprintf('Updating asset manager settings by [username] failed.');
+                $message = sprintf('Updating asset manager settings by :username failed.');
                 Observer::notify('log_event', $message, 2, 'assets');
             }
             break;          
@@ -100,7 +100,7 @@ class AssetsController extends PluginController
                 print "jQuery('#error').remove();";
                 print "jQuery('#content').prepend('<div id=\"success\">File deleted.</div>');";
                 print "jQuery('#success').hide().fadeIn('slow');";
-                $message = sprintf('File %s was deleted by [username].',
+                $message = sprintf('File %s was deleted by :username.',
                                    basename($asset));
                 Observer::notify('log_event', $message, 5, 'assets');
             } else {
@@ -108,7 +108,7 @@ class AssetsController extends PluginController
                 print "jQuery('#error').remove();";
                 print "jQuery('#content').prepend('<div id=\"error\">Could not delete file.</div>');";
                 print "jQuery('#error').hide().fadeIn('slow');";
-                $message = sprintf('Deleting file %s by [username] failed. %s',
+                $message = sprintf('Deleting file %s by :username failed. %s',
                                    basename($asset),
                                    $error_message[$_FILES['user_file']['error']]);
                 Observer::notify('log_event', $message, 3, 'assets');             
@@ -148,7 +148,7 @@ class AssetsController extends PluginController
               
         if (false === $pdo->exec($query)) {
             Flash::set('error', __('An error has occured.'));
-            $message = sprintf('Updating asset manager settings by [username] failed.');
+            $message = sprintf('Updating asset manager settings by :username failed.');
             Observer::notify('log_event', $message, 2, 'assets');
         } else {
             if ($folder_created) {
@@ -156,7 +156,7 @@ class AssetsController extends PluginController
             } else {
                 Flash::set('success', __('The settings have been updated.'));                
             }
-            $message = sprintf('Asset manager settings were updated by [username].');
+            $message = sprintf('Asset manager settings were updated by :username.');
             Observer::notify('log_event', $message, 5, 'assets');
         }
 
@@ -183,20 +183,20 @@ class AssetsController extends PluginController
 
                 Flash::set('success', 'File ' . basename($_FILES['user_file']['name']) . ' uploaded.');
 
-                $message = sprintf('File %s was uploaded by [username].',
+                $message = sprintf('File %s was uploaded by :username.',
                                    basename($_FILES['user_file']['name']));
                 Observer::notify('log_event', $message, 5, 'assets');
 
             } else {
                 Flash::set('error', $error_message[$_FILES['user_file']['error']]);
-                $message = sprintf('Uploading file %s by [username] failed. %s',
+                $message = sprintf('Uploading file %s by :username failed. %s',
                                    basename($asset),
                                    $error_message[$_FILES['user_file']['error']]);
                 Observer::notify('log_event', $message, 3, 'assets');
             }     
         } else {
             Flash::set('error', $error_message[$_FILES['user_file']['error']]);
-            $message = sprintf('Uploading file %s by [username] failed. %s',
+            $message = sprintf('Uploading file %s by :username failed. %s',
                                basename($asset),
                                $error_message[$_FILES['user_file']['error']]);
             Observer::notify('log_event', $message, 3, 'assets');
