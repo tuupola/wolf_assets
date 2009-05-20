@@ -257,7 +257,7 @@ function assets_latest($limit = 0, $folder='assets') {
             continue;
         }
         /* Do not include thumbnails. */
-        if (!strpos($file, '.64c.')) {
+        if (!assets_is_thumbnail($file)) {
             $path_parts = pathinfo($file);
             /* Support for PHP older than 5.2.0 */
             if (empty($path_parts['filename'])) {
@@ -287,6 +287,20 @@ function assets_latest($limit = 0, $folder='assets') {
 function assets_is_image($extension) {
     $images = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
     return in_array($extension, $images);
+}
+
+function assets_is_thumbnail($file) {  
+    switch (true) {
+        case preg_match('#(.+)\.([0-9]+)x?(c?)\.([a-z]+)$#i', $file);
+        case preg_match('#(.+)\.x([0-9]+)(c?)\.([a-z]+)$#i', $file);
+        case preg_match('#(.+)\.([0-9]+)x([0-9]+)(c?)\.([a-z]+)$#i', $file);
+            $retval = true;
+            break;
+        default;
+            $retval = false;
+        break;
+    }   
+    return $retval;
 }
 
 function assets_get_icon($extension) {
