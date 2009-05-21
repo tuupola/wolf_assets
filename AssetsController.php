@@ -137,7 +137,7 @@ class AssetsController extends PluginController
  
         $folder_created = false;
         foreach ($_POST['assets_folder_list'] as $folder) {
-            $check_folder = $_SERVER['DOCUMENT_ROOT'] . '/' . $folder;
+            $check_folder = FROG_ROOT . '/' . $folder;
             if (! file_exists($check_folder)) {
                 if (@mkdir($check_folder)) {
                     $folder_created = true;
@@ -176,7 +176,7 @@ class AssetsController extends PluginController
         /* Use later for remembering the pulldown value. */
         $_SESSION['assets_folder'] = $_POST['assets_folder'];
         
-        $upload_dir  = $_SERVER['DOCUMENT_ROOT'] . '/' . $_POST['assets_folder'] . '/';
+        $upload_dir  = FROG_ROOT . '/' . $_POST['assets_folder'] . '/';
         $upload_dir  = str_replace('//', '/', $upload_dir);
         $upload_file = $upload_dir . basename($_FILES['user_file']['name']);
         
@@ -237,7 +237,7 @@ function assets_latest($limit = 0, $folder='assets') {
     $file_array  = array();
 
     foreach ($folder_list as $folder) {
-        $assets_folder = $_SERVER['DOCUMENT_ROOT'] . '/' .  $folder . '/';
+        $assets_folder = FROG_ROOT . '/' .  $folder . '/';
         $assets_folder = str_replace('//', '/', $assets_folder);
         $file_array = array_merge($file_array, glob($assets_folder . '*.*'));
     }
