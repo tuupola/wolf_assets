@@ -43,7 +43,11 @@ git clone git://github.com/tuupola/frog_jquery_ui.git jquery_ui
 </pre>    
 
 
-Go to admin and enable Assets and Image Resize, jQuery and jQuery UI plugins. Now you are set to go.
+Go to admin and enable Assets and Image Resize, jQuery and jQuery UI plugins. 
+
+If you are using Page not found plugin disable and then re-enable it. This makes it run as last plugin on the page and fixes compatibility issue with Image Resize
+
+Now you are set to go.
 
 h3. Changelog
 
