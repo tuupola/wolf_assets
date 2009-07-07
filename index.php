@@ -15,9 +15,9 @@
 
 Plugin::setInfos(array(
     'id'          => 'assets',
-    'title'       => 'Assets',
+    'title'       => 'Asset Manager',
     'description' => 'Mephisto style asset management.',
-    'version'     => '0.4.7',
+    'version'     => '0.4.8-dev',
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',
     'require_frog_version' => '0.9.4',

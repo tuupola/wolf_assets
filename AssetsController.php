@@ -95,6 +95,7 @@ class AssetsController extends PluginController
         $command = array_shift($args);
         $asset   = $_SERVER['DOCUMENT_ROOT'] . '/' . implode('/', $args);
         $asset   = urldecode($asset);
+        $info    = pathinfo($asset);
         switch ($command) {
         case "delete":
             if (@unlink($asset)) {
@@ -105,6 +106,12 @@ class AssetsController extends PluginController
                 $message = sprintf('File %s was deleted by :username.',
                                    basename($asset));
                 Observer::notify('log_event', $message, 5, 'assets');
+                /* Attempt to remove all generated thumbnails. */
+                foreach (glob($info['dirname'] . '/'. $info['filename'] . '*') as $thumbnail) {
+                    if (assets_is_thumbnail($thumbnail)) {
+                        @unlink($thumbnail);
+                    } 
+                }
             } else {
                 print "jQuery('#success').remove();";
                 print "jQuery('#error').remove();";
