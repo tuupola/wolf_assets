@@ -13,6 +13,15 @@
  *
  */
  
+if (!defined('DASHBOARD_LOG_EMERG'))   define('DASHBOARD_LOG_EMERG',    0);
+if (!defined('DASHBOARD_LOG_ALERT'))   define('DASHBOARD_LOG_ALERT',    1);
+if (!defined('DASHBOARD_LOG_CRIT'))    define('DASHBOARD_LOG_CRIT',     2);
+if (!defined('DASHBOARD_LOG_ERR'))     define('DASHBOARD_LOG_ERR',      3);
+if (!defined('DASHBOARD_LOG_WARNING')) define('DASHBOARD_LOG_WARNING',  4);
+if (!defined('DASHBOARD_LOG_NOTICE'))  define('DASHBOARD_LOG_NOTICE',   5);
+if (!defined('DASHBOARD_LOG_INFO'))    define('DASHBOARD_LOG_INFO',     6);
+if (!defined('DASHBOARD_LOG_DEBUG'))   define('DASHBOARD_LOG_DEBUG',    7); 
+ 
 class AssetsController extends PluginController
 {
     function __construct() {
@@ -75,11 +84,11 @@ class AssetsController extends PluginController
                 Flash::set('success', __('Folder :deleted was removed from list. Delete it manually from server.', 
                                           array(':deleted' => $deleted)));
                 $message = sprintf('Asset manager settings were updated by :username.');
-                Observer::notify('log_event', $message, 5, 'assets');                              
+                Observer::notify('log_event', $message, 'assets');                              
             } else {
                 Flash::set('error', 'An error has occured.');
                 $message = sprintf('Updating asset manager settings by :username failed.');
-                Observer::notify('log_event', $message, 2, 'assets');
+                Observer::notify('log_event', $message, 'assets', DASHBOARD_LOG_CRIT);
             }
             break;          
         default:
@@ -105,7 +114,7 @@ class AssetsController extends PluginController
                 print "jQuery('#success').hide().fadeIn('slow');";
                 $message = sprintf('File %s was deleted by :username.',
                                    basename($asset));
-                Observer::notify('log_event', $message, 5, 'assets');
+                Observer::notify('log_event', $message, 'assets');
                 /* Attempt to remove all generated thumbnails. */
                 foreach (glob($info['dirname'] . '/'. $info['filename'] . '*') as $thumbnail) {
                     if (assets_is_thumbnail($thumbnail)) {
@@ -120,7 +129,7 @@ class AssetsController extends PluginController
                 $message = sprintf('Deleting file %s by :username failed. %s',
                                    basename($asset),
                                    $error_message[$_FILES['user_file']['error']]);
-                Observer::notify('log_event', $message, 3, 'assets');             
+                Observer::notify('log_event', $message, 'assets', DASHBOARD_LOG_ERR);             
             }
             break;          
         default:
@@ -158,7 +167,7 @@ class AssetsController extends PluginController
         if (false === $pdo->exec($query)) {
             Flash::set('error', __('An error has occured.'));
             $message = sprintf('Updating asset manager settings by :username failed.');
-            Observer::notify('log_event', $message, 2, 'assets');
+            Observer::notify('log_event', $message, 'assets', DASHBOARD_LOG_CRIT);
         } else {
             if ($folder_created) {
                 Flash::set('success', __('Folder has been created and settings have been updated'));                
@@ -166,7 +175,7 @@ class AssetsController extends PluginController
                 Flash::set('success', __('The settings have been updated.'));                
             }
             $message = sprintf('Asset manager settings were updated by :username.');
-            Observer::notify('log_event', $message, 5, 'assets');
+            Observer::notify('log_event', $message, 'assets');
         }
 
         redirect(get_url('plugin/assets/settings'));   
@@ -194,21 +203,21 @@ class AssetsController extends PluginController
 
                 $message = sprintf('File %s was uploaded by :username.',
                                    basename($_FILES['user_file']['name']));
-                Observer::notify('log_event', $message, 5, 'assets');
+                Observer::notify('log_event', $message, 'assets');
 
             } else {
                 Flash::set('error', $error_message[$_FILES['user_file']['error']]);
                 $message = sprintf('Uploading file %s by :username failed. %s',
                                    basename($asset),
                                    $error_message[$_FILES['user_file']['error']]);
-                Observer::notify('log_event', $message, 3, 'assets');
+                Observer::notify('log_event', $message, 'assets', DASHBOARD_LOG_ERR);
             }     
         } else {
             Flash::set('error', $error_message[$_FILES['user_file']['error']]);
             $message = sprintf('Uploading file %s by :username failed. %s',
                                basename($asset),
                                $error_message[$_FILES['user_file']['error']]);
-            Observer::notify('log_event', $message, 3, 'assets');
+            Observer::notify('log_event', $message, 'assets', DASHBOARD_LOG_ERR);
         }
         
         redirect(get_url('plugin/assets'));         
