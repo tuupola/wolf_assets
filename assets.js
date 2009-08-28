@@ -11,6 +11,11 @@
  *
  */
  
+/* FIX IE of not allowing dropping links into textarea. */
+document.ondragstart = function () { 
+    window.event.dataTransfer.effectAllowed = "copyLink"; 
+}; 
+ 
 jQuery(function($) {
         
     /* If you are running 0.9.4 or older and you installed Frog */
@@ -51,7 +56,7 @@ jQuery(function($) {
 		    var url = frog_root + '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
 		    $(ui.draggable.context).hide();
 		    $.getScript(url);
-		    $(this).attr('src', '../frog/plugins/assets/images/trash.png')
+		    $(this).attr('src', '../frog/plugins/assets/images/trash.png');
         }, 
         over: function(event, ui) {
             $(this).attr('src', '../frog/plugins/assets/images/trash_full.png');
