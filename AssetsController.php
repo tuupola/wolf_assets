@@ -182,7 +182,6 @@ class AssetsController extends PluginController
 	}
     
     function upload() {
-        
         $error_message[0] = "Unknown problem with upload.";
         $error_message[1] = "Uploaded file too large (load_max_filesize).";
         $error_message[2] = "Uploaded file too large (MAX_FILE_SIZE).";
@@ -190,9 +189,9 @@ class AssetsController extends PluginController
         $error_message[4] = "Choose a file to upload.";
         
         /* Use later for remembering the pulldown value. */
-        $_SESSION['assets_folder'] = $_POST['assets_folder'];
+        $_SESSION['assets_folder'] = isset($_POST['assets_folder']) ? $_POST['assets_folder'] : $_GET['assets_folder'];
         
-        $upload_dir  = FROG_ROOT . '/' . $_POST['assets_folder'] . '/';
+        $upload_dir  = FROG_ROOT . '/' . $_SESSION['assets_folder'] . '/';
         $upload_dir  = str_replace('//', '/', $upload_dir);
         $upload_file = $upload_dir . basename($_FILES['user_file']['name']);
         
@@ -220,7 +219,11 @@ class AssetsController extends PluginController
             Observer::notify('log_event', $message, 'assets', DASHBOARD_LOG_ERR);
         }
         
-        redirect(get_url('plugin/assets'));         
+        if ('latest' == $_GET['view']) {
+            redirect(get_url('plugin/assets/latest/0?request_method=ajax'));
+        } else {
+            redirect(get_url('plugin/assets'));
+        }
     }
     
     function latest($limit=0, $folder=null) {
@@ -231,7 +234,7 @@ class AssetsController extends PluginController
             $folder = $_SESSION['assets_folder'];
         }
 
-        if ('AJAX' == get_request_method()) {
+        if ('AJAX' == get_request_method() || 'ajax' == $_GET['request_method']) {
             $this->setLayout(null);
         } 
 
