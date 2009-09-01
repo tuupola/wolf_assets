@@ -10,14 +10,16 @@
  *   http://www.appelsiini.net/projects/frog_assets
  *
  */
- 
-/* FIX IE of not allowing dropping links into textarea. */
-document.ondragstart = function () { 
-    window.event.dataTransfer.effectAllowed = "copyLink"; 
-}; 
- 
+  
 jQuery(function($) {
-        
+
+    /* FIX IE of not allowing dropping links into textarea. */
+    if ($.browser.msie) {
+        document.ondragstart = function () { 
+            window.event.dataTransfer.effectAllowed = "copyLink"; 
+        };    
+    }
+            
     /* If you are running 0.9.4 or older and you installed Frog */
     /* somewhere else than document root uncomment and edit line below by hand. */
     /* var frog_root = ''; */
