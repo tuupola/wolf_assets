@@ -128,7 +128,10 @@ jQuery(function($) {
         $('#content-wrapper').get(0).addEventListener('dragdrop', upload, false);
     } else if ($.browser.msie) {
         $('#content-wrapper').get(0).attachEvent('ondrop', upload, false);                
-        $('#content-wrapper').get(0).attachEvent('ondragover', function() { event.returnValue = false; }, false);                
+        $('#content-wrapper').get(0).attachEvent('ondragover', function(event) { event.returnValue = false; }, false);                
+    } else if ($.browser.safari) {
+        $('#content-wrapper').get(0).addEventListener('drop', upload, false);        
+        $('#content-wrapper').get(0).addEventListener('dragover', function(event) { event.returnValue = false; }, false);
     }
     
     function upload(event) {
