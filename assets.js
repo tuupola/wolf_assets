@@ -126,12 +126,18 @@ jQuery(function($) {
     /* We cannot use $.bind() since jQuery does not normalize the native events. */
     if ($.browser.mozilla) {
         $('#content-wrapper').get(0).addEventListener('dragdrop', upload, false);
+        $('#content-wrapper').get(0).addEventListener('dragenter', function(event) { $('#content-wrapper').css("background-color", "#ffc"); }, false);
+        $('#content-wrapper').get(0).addEventListener('dragexit', function(event) { $('#content-wrapper').css("background-color", "#fff"); }, false);   
     } else if ($.browser.msie) {
         $('#content-wrapper').get(0).attachEvent('ondrop', upload, false);                
         $('#content-wrapper').get(0).attachEvent('ondragover', function(event) { event.returnValue = false; }, false);                
+        $('#content-wrapper').get(0).attachEvent('ondragenter', function(event) { $('#content-wrapper').css("background-color", "#ffc"); }, false);
+        $('#content-wrapper').get(0).attachEvent('ondragleave', function(event) { $('#content-wrapper').css("background-color", "#fff"); }, false);   
     } else if ($.browser.safari) {
         $('#content-wrapper').get(0).addEventListener('drop', upload, false);        
         $('#content-wrapper').get(0).addEventListener('dragover', function(event) { event.returnValue = false; }, false);
+        $('#content-wrapper').get(0).addEventListener('dragenter', function(event) { $('#content-wrapper').css("background-color", "#ffc"); }, false);
+        $('#content-wrapper').get(0).addEventListener('dragleave', function(event) { $('#content-wrapper').css("background-color", "#fff"); }, false);   
     }
     
     function upload(event) {
