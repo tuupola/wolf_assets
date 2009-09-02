@@ -17,7 +17,9 @@ jQuery(function($) {
     /* FIX IE of not allowing dropping links into textarea. */
     if ($.browser.msie) {
         document.ondragstart = function () { 
-            window.event.dataTransfer.effectAllowed = "copyLink"; 
+            if (window.event.dataTransfer != undefined) {
+                window.event.dataTransfer.effectAllowed = "copyLink";
+            } 
         };    
     }
         
@@ -120,12 +122,18 @@ jQuery(function($) {
     /* Google Gears support. */
     var desktop = google.gears.factory.create('beta.desktop');
     var request = google.gears.factory.create('beta.httprequest');
+
+    /* We cannot use $.bind() since jQuery does not normalize the native events. */
+    if ($.browser.mozilla) {
+        $('#content-wrapper').get(0).addEventListener('dragdrop', upload, false);
+    } else if ($.browser.msie) {
+        $('#content-wrapper').get(0).attachEvent('ondrop', upload, false);                
+        $('#content-wrapper').get(0).attachEvent('ondragover', function() { event.returnValue = false; }, false);                
+    }
     
-    $('#content-wrapper').bind("dragdrop", function(event) {
-        
-        var data = desktop.getDragData(event.originalEvent, 'application/x-gears-files');
+    function upload(event) {
+        var data = desktop.getDragData(event, 'application/x-gears-files');
         var file = data.files[0]; /* TODO: Support for multiple files. */
-        
         var boundary = '------multipartformboundary' + '12345';
         var dashdash = '--';
         var crlf     = '\r\n';
@@ -154,12 +162,12 @@ jQuery(function($) {
         builder.append(crlf);
         
         request.upload.onprogress = function() {
-            console.log("uploading...");
         };
         
         request.onreadystatechange = function() {
             switch(request.readyState) {
                 case 4:
+                    /* Rebind jQuery UI draggable */
                     $("#assets_list").html(request.responseText);
                     $("#assets_list a").draggable({
                         revert: 'invalid'
@@ -171,8 +179,12 @@ jQuery(function($) {
         request.open("POST", "/admin/plugin/assets/upload?assets_folder=assets&view=latest");
         request.setRequestHeader('content-type', 'multipart/form-data; boundary=' + boundary);
         request.send(builder.getAsBlob());
-        return false;
-    });
+        
+        /* Prevent FireFox opening the dragged file. */
+        if ($.browser.mozilla) {
+            event.stopPropagation();
+        }
+    }
 
 });
 
