@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Assets - Frog CMS Mephisto style asset management plugin
+ * Assets - Wolf CMS Mephisto style asset management plugin
  *
- * Copyright (c) 2008-2009 Mika Tuupola
+ * Copyright (c) 2008-2010 Mika Tuupola
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -346,7 +346,7 @@ function assets_default_folder() {
 }
 
 function assets_check_gd_support() {
-    $needed   = array('GIF Read Support', 'JPG Support', 'PNG Support');
+    $needed   = array('GIF Read Support', 'JPEG Support', 'PNG Support');
     $provided = gd_info();
     foreach ($needed as $item) {
         if (!$provided[$item]) {
