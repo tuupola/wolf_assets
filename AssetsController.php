@@ -34,11 +34,7 @@ class AssetsController extends PluginController
                                            $_SESSION['assets_folder'] : assets_default_folder();
 
         $this->setLayout('backend');
-        if (version_compare(FROG_VERSION, '0.9.4', '<=')) {
-            $this->assignToLayout('sidebar', new View('../../../plugins/assets/views/sidebar'));            
-        } else {
-            $this->assignToLayout('sidebar', new View('../../plugins/assets/views/sidebar'));            
-        }
+        $this->assignToLayout('sidebar', new View('../../plugins/assets/views/sidebar'));            
      
     }
 
@@ -341,7 +337,7 @@ function assets_get_icon($extension) {
             $retval = 'images/doc.png';
             break;
     }
-    return '../frog/plugins/assets/' . $retval;
+    return '/wolf/plugins/assets/' . $retval;
 }
 
 function assets_default_folder() {

@@ -14,5 +14,5 @@
   <?php endforeach; ?>
 </p>
 <p id="assets_tools">
-  <img id="trash_can" src="../frog/plugins/assets/images/trash.png" />
+  <img id="trash_can" src="/wolf/plugins/assets/images/trash.png" />
 </p>

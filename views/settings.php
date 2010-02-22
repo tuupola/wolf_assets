@@ -16,9 +16,9 @@
         <?php foreach ($assets_folder_list as $key => $folder): ?> 
         <span class="assets-folder">
         <input type="text" name="assets_folder_list[]" value="<?php print $folder ?>" />
-        <a href="#"><img class="assets-folder-add" src="../frog/plugins/assets/images/add.png" alt="add" /></a>
+        <a href="#"><img class="assets-folder-add" src="/wolf//plugins/assets/images/add.png" alt="add" /></a>
         <?php if ($key > 0): ?>
-        <a href="<?php print get_url('plugin/assets/folder/delete/' . $key); ?>"><img class="assets-folder-delete" src="../frog/plugins/assets/images/delete.png" alt="delete" /></a>
+        <a href="<?php print get_url('plugin/assets/folder/delete/' . $key); ?>"><img class="assets-folder-delete" src="/wolf/plugins/assets/images/delete.png" alt="delete" /></a>
         <?php endif; ?>
         <br />
         </span>
