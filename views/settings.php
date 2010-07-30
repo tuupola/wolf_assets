@@ -1,8 +1,6 @@
-<h1><?php print __('Assets Plugin'); ?></h1>
+<h1><?php print __('Settings'); ?></h1>
 
 <form action="<?php print get_url('plugin/assets/save'); ?>" method="post">
-<fieldset style="padding: 0.5em;">
-  <legend style="padding: 0em 0.5em 0em 0.5em; font-weight: bold;"><?php echo __('Settings'); ?></legend>
   <table class="fieldset" cellpadding="0" cellspacing="0" border="0">
     <tr>
       <td class="label">
@@ -27,7 +25,6 @@
       <td class="help"><?php echo __('You can use multiple folders to categorize files.'); ?></td>
     </tr>
   </table>
-</fieldset>
 <br/>
 <p class="buttons">
   <input class="button" name="commit" type="submit" accesskey="s" value="<?php echo __('Save'); ?>" />
