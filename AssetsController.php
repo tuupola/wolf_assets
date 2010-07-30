@@ -350,8 +350,11 @@ function assets_default_folder() {
 }
 
 function assets_check_gd_support() {
-    $needed   = array('GIF Read Support', 'JPG Support', 'PNG Support');
     $provided = gd_info();
+    $needed   = array('GIF Read Support', 'JPG Support', 'PNG Support');
+    if($provided['GD Version'] >= 2)
+        $needed = array('GIF Read Support', 'JPEG Support', 'PNG Support');
+
     foreach ($needed as $item) {
         if (!$provided[$item]) {
             Flash::set('error', __('Your system does not have :item. Assets manager will not work properly.', 
