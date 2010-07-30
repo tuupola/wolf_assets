@@ -22,6 +22,10 @@
     font-size: 12px;
 }
 
+form.new_asset {
+  margin-top: 20px;
+}
+
 #assets_sidebar {
     position: absolute;
     right: 20px;
