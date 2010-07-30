@@ -74,19 +74,12 @@ jQuery(function($) {
     /* Run only when editing a page. */
     if ($('.page textarea').size()) {
         $('#pages')
-            .prepend('<div id="assets_page"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>')
-            .prepend('<div id="assets_folder"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>');
-
-        var left = $('.page textarea:visible').offset().left + $('.page textarea:visible').outerWidth() + 5;
-        var top  = $('.page textarea:visible').offset().top - 30 ;
-
-        $('#assets_page')
-            .load(frog_root + '/admin/?/plugin/assets/latest/0')
-            .css('top', top)
-            .css('left', left);
-
-        var left_2 = $('.page textarea:visible').offset().left + $('.page textarea:visible').outerWidth() + 5;
-        var top_2  = $('.part > p > select:visible').offset().top;
+            .prepend('<div id="assets_sidebar">'
+                     + '<div id="assets_folder"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>'
+                     + '<div id="assets_page"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>'
+                     + '</div>');
+                     
+        $('#assets_page').load(frog_root + '/admin/?/plugin/assets/latest/0');
 
         $('#assets_folder')
             .load(frog_root + '/admin/?/plugin/assets/pulldown', function() {
@@ -95,25 +88,8 @@ jQuery(function($) {
                     $("#assets_page").load(frog_root + '/admin/?/plugin/assets/latest/0/' + folder);
                 });
             })
-            .css('top', top_2)
-            .css('left', left_2);
     }
-    
-    /* Reposition assets when resizing a window. */
-    $(window).bind('resize', function() {
-        var left = $('#page-1 textarea').offset().left + $('#page-1 textarea').outerWidth() + 5;
-        var top  = $('#page-1 textarea').offset().top - 1 ;
-        $('#assets_page')
-            .css('top', top)
-            .css('left', left);     
 
-        var left_2 = $('#page-1 textarea').offset().left + jQuery('#page-1 textarea').outerWidth() + 5;
-        var top_2  = $('#part-1 > p > select').offset().top;         
-        $('#assets_folder')
-            .css('top', top_2)
-            .css('left', left_2);     
-    });
-    
     /* Just a shortcut to also reposition when clicking a tab. */
     $('#tabs-meta > a.tab').bind('click', function() {
         $(window).trigger('resize');

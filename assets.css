@@ -1,7 +1,7 @@
 .pages .page {
-	margin-left: 250px;
+	margin-left: 270px;
 	position: relative;
-	right: 250px;
+	right: 270px;
 }
 
 /* This would show the sidebar. 
@@ -22,20 +22,25 @@
     font-size: 12px;
 }
 
+#assets_sidebar {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  	width: 250px;
+}
+
 #assets_list {
   width: 90%;
 }
 
-div#assets_page {
-  	width: 250px;
+#assets_page {
+    margin-top: 5px;
     height: 305px;
-  	position: absolute;
   	overflow: auto;
 }
 
 #assets_folder {
   	width: 250px;
-  	position: absolute; 
 }
 
 #assets_folder > select {
@@ -63,6 +68,8 @@ div#assets_page {
 #assets_tools {
   float: right;
 }
+
+#pages { position: relative; }
 
 #content textarea {
     height: 292px;
