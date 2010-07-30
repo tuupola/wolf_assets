@@ -1,7 +1,7 @@
 .pages .page {
-	margin-left: 150px;
+	margin-left: 250px;
 	position: relative;
-	right: 150px;
+	right: 250px;
 }
 
 /* This would show the sidebar. 
@@ -23,24 +23,28 @@
 }
 
 div#assets_page {
-  	width: 150px;
-  	position: absolute; 
+  	width: 250px;
+    height: 305px;
+  	position: absolute;
+  	overflow: auto;
 }
 
 #assets_folder {
-  	width: 150px;
+  	width: 250px;
   	position: absolute; 
 }
 
 #assets_folder > select {
-  	width: 150px;
+  	width: 250px;
 } 
 
 #assets_page img,
 #assets_list img {
+    display: block;
+    float: left;
     border: 1px solid #ccc;
     padding: 2px;
-    margin: 2px 0px 0px 0px;
+    margin: 3px;
     width: 64px;
     height: 64px;
 }
@@ -51,12 +55,11 @@ div#assets_page {
     height: 64px;
 }
 
-#content textarea {
-    height: 290px;
-}
-
 #assets_tools {
   float: right;
 }
 
+#content textarea {
+    height: 292px;
+}
 

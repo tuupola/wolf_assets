@@ -75,10 +75,10 @@ jQuery(function($) {
             .prepend('<div id="assets_folder"><img src="../frog/plugins/assets/images/indicator.gif" /></div>');
 
         var left = $('.page textarea:visible').offset().left + $('.page textarea:visible').outerWidth() + 5;
-        var top  = $('.page textarea:visible').offset().top - 1 ;
+        var top  = $('.page textarea:visible').offset().top - 30 ;
 
         $('#assets_page')
-            .load(frog_root + '/admin/?/plugin/assets/latest/8')
+            .load(frog_root + '/admin/?/plugin/assets/latest/0')
             .css('top', top)
             .css('left', left);
 
@@ -89,7 +89,7 @@ jQuery(function($) {
             .load(frog_root + '/admin/?/plugin/assets/pulldown', function() {
                 $('select', this).bind('change', function() {
                     var folder = $(this).val().replace(/\//g, ':');
-                    $("#assets_page").load(frog_root + '/admin/?/plugin/assets/latest/8/' + folder);
+                    $("#assets_page").load(frog_root + '/admin/?/plugin/assets/latest/0/' + folder);
                 });
             })
             .css('top', top_2)
