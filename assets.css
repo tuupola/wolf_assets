@@ -22,6 +22,10 @@
     font-size: 12px;
 }
 
+#assets_list {
+  width: 90%;
+}
+
 div#assets_page {
   	width: 250px;
     height: 305px;

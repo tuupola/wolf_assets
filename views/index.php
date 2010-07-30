@@ -8,11 +8,11 @@
   <?php endforeach; ?>
 </select>
 </form>
-<p id="assets_list">
+<p id="assets_tools">
+  <img id="trash_can" src="../frog/plugins/assets/images/trash.png" />
+</p>
+<p id="assets_list" class="clearfix">
   <?php foreach ($image_array as $image => $thumbnail): ?>
   <a href="<?php print $image?>" title="<?php print $image?>"><img src="<?php print $thumbnail ?>" /></a>
   <?php endforeach; ?>
-</p>
-<p id="assets_tools">
-  <img id="trash_can" src="../frog/plugins/assets/images/trash.png" />
 </p>
