@@ -352,7 +352,7 @@ function assets_default_folder() {
 function assets_check_gd_support() {
     $provided = gd_info();
     $needed   = array('GIF Read Support', 'JPG Support', 'PNG Support');
-    if($provided['GD Version'] >= 2)
+    if(isset($provided['JPEG Support']))
         $needed = array('GIF Read Support', 'JPEG Support', 'PNG Support');
 
     foreach ($needed as $item) {
