@@ -15,14 +15,14 @@
 
 Plugin::setInfos(array(
     'id'          => 'assets',
-    'title'       => 'Asset Manager',
-    'description' => 'Mephisto style asset management.',
-    'version'     => '0.4.9',
+    'title'       => __('Asset Manager'),
+    'description' => __('Mephisto style asset management.'),
+    'version'     => '0.5.0-dev',
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',
-    'require_frog_version' => '0.9.4',
     'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
-    'website'     => 'http://www.appelsiini.net/projects/frog_assets'
+    'website'     => 'http://www.appelsiini.net/projects/frog_assets',
+    'require_wolf_version' => '0.6.0',
 ));
 
 /* Stuff for backend. */
@@ -40,5 +40,10 @@ function assets_inject_javascript($plugin_name, $plugin) {
 }
 
 function assets_frog_root() {
-    return str_replace(realpath($_SERVER['DOCUMENT_ROOT']), '', realpath(FROG_ROOT));
+    return str_replace(realpath(assets_document_root()), '', realpath(CMS_ROOT));
+}
+
+/* Since we cannot trust $_SERVER['DOCUMENT_ROOT'] */
+function assets_document_root() {
+    return str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['SCRIPT_FILENAME']);
 }

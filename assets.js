@@ -49,8 +49,11 @@ jQuery(function($) {
     });
     
     /* Make assets draggable in assets tab. */
+    console.log( $("#assets_list a"));
     $("#assets_list a").draggable({
-        revert: 'invalid'
+        revert: 'invalid',
+        helper: 'clone',
+        cursorAt: { top: 32, right: 32 }
     });
     $("#trash_can").droppable({
         tolerance: 'touch',

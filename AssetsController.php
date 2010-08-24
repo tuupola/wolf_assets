@@ -98,7 +98,7 @@ class AssetsController extends PluginController
     function file() {
         $args    = func_get_args();
         $command = array_shift($args);
-        $asset   = $_SERVER['DOCUMENT_ROOT'] . '/' . implode('/', $args);
+        $asset   = assets_document_root() . '/' . implode('/', $args);
         $asset   = urldecode($asset);
         $info    = pathinfo($asset);
         switch ($command) {
@@ -149,7 +149,7 @@ class AssetsController extends PluginController
  
         $folder_created = false;
         foreach ($_POST['assets_folder_list'] as $folder) {
-            $check_folder = FROG_ROOT . '/' . $folder;
+            $check_folder = CMS_ROOT . '/' . $folder;
             if (! file_exists($check_folder)) {
                 if (@mkdir($check_folder)) {
                     $folder_created = true;
@@ -188,7 +188,7 @@ class AssetsController extends PluginController
         /* Use later for remembering the pulldown value. */
         $_SESSION['assets_folder'] = $_POST['assets_folder'];
         
-        $upload_dir  = FROG_ROOT . '/' . $_POST['assets_folder'] . '/';
+        $upload_dir  = CMS_ROOT . '/' . $_POST['assets_folder'] . '/';
         $upload_dir  = str_replace('//', '/', $upload_dir);
         $upload_file = $upload_dir . basename($_FILES['user_file']['name']);
         
@@ -249,7 +249,7 @@ function assets_latest($limit = 0, $folder='assets') {
     $file_array  = array();
 
     foreach ($folder_list as $folder) {
-        $assets_folder = FROG_ROOT . '/' .  $folder . '/';
+        $assets_folder = CMS_ROOT . '/' .  $folder . '/';
         $assets_folder = str_replace('//', '/', $assets_folder);
         $file_array = array_merge($file_array, glob($assets_folder . '*.*'));
     }
@@ -276,7 +276,7 @@ function assets_latest($limit = 0, $folder='assets') {
                 $path_parts['filename'] = basename($file, '.' . $path_parts['extension']);                                
             }
 
-            $folder   = '/' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $path_parts['dirname']) . '/';
+            $folder   = '/' . str_replace(assets_document_root(), '', $path_parts['dirname']) . '/';
             $folder   = str_replace('//', '/', $folder);
             $original = $folder . $path_parts['basename'];
             
@@ -348,8 +348,9 @@ function assets_default_folder() {
 function assets_check_gd_support() {
     $provided = gd_info();
     $needed   = array('GIF Read Support', 'JPG Support', 'PNG Support');
-    if(isset($provided['JPEG Support']))
+    if(isset($provided['JPEG Support'])) {
         $needed = array('GIF Read Support', 'JPEG Support', 'PNG Support');
+    }
 
     foreach ($needed as $item) {
         if (!$provided[$item]) {
