@@ -1,6 +1,6 @@
 h3. What?
 
-"Mephisto":http://www.mephistoblog.com/ style asset management for "Frog CMS":http://www.madebyfrog.com/. You can drag thumbnail to body text to insert full URL to image.
+"Mephisto":http://www.mephistoblog.com/ style asset management for "Wolf CMS":http://www.madebyfrog.com/. You can drag thumbnail to body text to insert full URL to image.
 
 !http://www.appelsiini.net/assets/2008/12/22/assets_page.png!
 

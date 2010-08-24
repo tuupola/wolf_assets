@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Assets - Frog CMS Mephisto style asset management plugin
+ * Assets - Wolf CMS Mephisto style asset management plugin
  *
- * Copyright (c) 2008-2009 Mika Tuupola
+ * Copyright (c) 2008-2010 Mika Tuupola
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
