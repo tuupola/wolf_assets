@@ -18,32 +18,21 @@ mkdir assets
 chmod a+w assets
 </pre>
 
-Copy plugin files to _frog/plugins/assets/_ folder.
+Copy plugin files to _wolf/plugins/assets/_ folder.
 
 <pre>
 cd frog/plugins/
-git clone git://github.com/tuupola/frog_assets.git assets
+git clone git://github.com/tuupola/wolf_assets.git assets
 </pre>
 
-You also need Peter Gassners excellent "Image Resize":http://github.com/naehrstoff/image_resize/ plugin and my "jQuery":http://github.com/tuupola/frog_jquery and "jQuery UI":http://github.com/tuupola/frog_jquery_ui plugins.
+You also need Peter Gassners excellent "Image Resize":http://github.com/naehrstoff/image_resize/ plugin.
 
 <pre>
 cd frog/plugins/
 git clone git://github.com/naehrstoff/image_resize.git image_resize
 </pre>
 
-<pre>
-cd frog/plugins/
-git clone git://github.com/tuupola/frog_jquery.git jquery
-</pre>    
-
-<pre>
-cd frog/plugins/
-git clone git://github.com/tuupola/frog_jquery_ui.git jquery_ui
-</pre>    
-
-
-Go to admin and enable Assets and Image Resize, jQuery and jQuery UI plugins. 
+Go to admin and enable Assets and Image Resize plugins.
 
 If you are using Page not found plugin disable and then re-enable it. This makes it run as last plugin on the page and fixes compatibility issue with Image Resize
 
