@@ -55,6 +55,7 @@ div#assets_page {
 
 #assets_tools img  {
     padding: 2px;
+    padding-top: 12px;
     width: 64px;
     height: 64px;
 }

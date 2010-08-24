@@ -10,7 +10,7 @@
  *   http://www.appelsiini.net/projects/frog_assets
  *
  */
-  
+ 
 jQuery(function($) {
 
     /* FIX IE of not allowing dropping links into textarea. */
@@ -58,21 +58,21 @@ jQuery(function($) {
 		    var url = frog_root + '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
 		    $(ui.draggable.context).hide();
 		    $.getScript(url);
-		    $(this).attr('src', '../frog/plugins/assets/images/trash.png');
+		    $(this).attr('src', '/wolf/plugins/assets/images/trash.png');
         }, 
         over: function(event, ui) {
-            $(this).attr('src', '../frog/plugins/assets/images/trash_full.png');
+            $(this).attr('src', '/wolf/plugins/assets/images/trash_full.png');
         },
         out: function(event, ui) {
-            $(this).attr('src', '../frog/plugins/assets/images/trash.png');
+            $(this).attr('src', '/wolf/plugins/assets/images/trash.png');
 		}
 	});
 	    
     /* Run only when editing a page. */
     if ($('.page textarea').size()) {
         $('#pages')
-            .prepend('<div id="assets_page"><img src="../frog/plugins/assets/images/indicator.gif" /></div>')
-            .prepend('<div id="assets_folder"><img src="../frog/plugins/assets/images/indicator.gif" /></div>');
+            .prepend('<div id="assets_page"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>')
+            .prepend('<div id="assets_folder"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>');
 
         var left = $('.page textarea:visible').offset().left + $('.page textarea:visible').outerWidth() + 5;
         var top  = $('.page textarea:visible').offset().top - 30 ;
