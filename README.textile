@@ -1,6 +1,6 @@
 h3. What?
 
-"Mephisto":http://www.mephistoblog.com/ style asset management for "Wolf CMS":http://www.madebyfrog.com/. You can drag thumbnail to body text to insert full URL to image.
+"Mephisto":http://www.mephistoblog.com/ style asset management for "Wolf CMS":http://www.wolfcms.org/. You can drag thumbnail to body text to insert full URL to image.
 
 !http://www.appelsiini.net/assets/2008/12/22/assets_page.png!
 
@@ -21,14 +21,14 @@ chmod a+w assets
 Copy plugin files to _wolf/plugins/assets/_ folder.
 
 <pre>
-cd frog/plugins/
+cd wolf/plugins/
 git clone git://github.com/tuupola/wolf_assets.git assets
 </pre>
 
 You also need Peter Gassners excellent "Image Resize":http://github.com/naehrstoff/image_resize/ plugin.
 
 <pre>
-cd frog/plugins/
+cd wolf/plugins/
 git clone git://github.com/naehrstoff/image_resize.git image_resize
 </pre>
 
@@ -42,7 +42,7 @@ h3. Changelog
 
 h4. 0.4.9
 
-* Fix IE fugbix intrduced in previous version.
+* Fix IE fugbix introduced in previous version.
 
 h4. 0.4.8
 
