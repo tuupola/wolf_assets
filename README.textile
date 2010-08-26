@@ -38,7 +38,18 @@ If you are using Page not found plugin disable and then re-enable it. This makes
 
 Now you are set to go.
 
+h3. Contributors
+
+"René Kersten":http://www.pixel-webarts.de/
+
 h3. Changelog
+
+h4. 0.5.0
+
+* HEADS UP! Drop support for Frog CMS. Support Wolf CMS only.
+* Position sidebar with CSS instead of JavaScript. ("endorfin":http://github.com/endorfin)
+* General HTML tidyup. ("endorfin":http://github.com/endorfin)
+* Fix check_gd_support for GD Lib > v2.0 ("endorfin":http://github.com/endorfin) 
 
 h4. 0.4.9
 
