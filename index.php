@@ -40,10 +40,5 @@ function assets_inject_javascript($plugin_name, $plugin) {
 }
 
 function assets_frog_root() {
-    return str_replace(realpath(assets_document_root()), '', realpath(CMS_ROOT));
-}
-
-/* Since we cannot trust $_SERVER['DOCUMENT_ROOT'] */
-function assets_document_root() {
-    return str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['SCRIPT_FILENAME']);
+    return str_replace(realpath(CMS_ROOT), '', realpath(CMS_ROOT));
 }

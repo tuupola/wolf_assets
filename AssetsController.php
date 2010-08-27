@@ -98,7 +98,7 @@ class AssetsController extends PluginController
     function file() {
         $args    = func_get_args();
         $command = array_shift($args);
-        $asset   = assets_document_root() . '/' . implode('/', $args);
+        $asset   = realpath(CMS_ROOT) . '/' . implode('/', $args);
         $asset   = urldecode($asset);
         $info    = pathinfo($asset);
         switch ($command) {
@@ -276,7 +276,7 @@ function assets_latest($limit = 0, $image_size = 'thumbnail', $folder = 'assets'
                 $path_parts['filename'] = basename($file, '.' . $path_parts['extension']);                                
             }
 
-            $folder   = '/' . str_replace(assets_document_root(), '', $path_parts['dirname']) . '/';
+            $folder   = '/' . str_replace(realpath(CMS_ROOT), '', $path_parts['dirname']) . '/';
             $folder   = str_replace('//', '/', $folder);
             $original = $folder . $path_parts['basename'];
             
