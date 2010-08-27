@@ -12,13 +12,6 @@
  */
  
 jQuery(function($) {
-
-    /* FIX IE of not allowing dropping links into textarea. */
-    if ($.browser.msie) {
-        document.ondragstart = function () { 
-            window.event.dataTransfer.effectAllowed = "copyLink"; 
-        };    
-    }
     
     /* Add James Padolsey's regexp selector (http://shrt.st/mma). */
     $.expr[':'].regex = function(elem, index, match) {
@@ -86,6 +79,13 @@ jQuery(function($) {
 	    
     /* Run only when editing a page. */
     if ($('.page textarea').size()) {
+        
+        /* FIX IE of not allowing dropping links into textarea. */
+        if ($.browser.msie) {
+            document.ondragstart = function () { 
+                window.event.dataTransfer.effectAllowed = "copyLink"; 
+            };    
+        }
         
         var image_size = 'thumbnail';
         if ('tinymce' == $(':regex(id,^part_[0-9]*_filter):visible').val()) {
