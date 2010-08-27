@@ -50,7 +50,9 @@ jQuery(function($) {
         $("#assets_list").load(frog_root + '/admin/?/plugin/assets/latest/0/thumbnail/' + folder, null, function() {
             /* Make assets draggable in assets tab. */
             $("#assets_list a").draggable({
-                revert: 'invalid'
+                revert: 'invalid',
+                helper: 'clone',
+                cursorAt: { top: 32, right: 32 }
             });
         });
     });
@@ -61,6 +63,7 @@ jQuery(function($) {
         helper: 'clone',
         cursorAt: { top: 32, right: 32 }
     });
+    
     $("#trash_can").droppable({
         tolerance: 'touch',
         drop: function(event, ui) {
@@ -86,7 +89,7 @@ jQuery(function($) {
                 window.event.dataTransfer.effectAllowed = "copyLink"; 
             };    
         }
-        
+
         var image_size = 'thumbnail';
         if ('tinymce' == $(':regex(id,^part_[0-9]*_filter):visible').val()) {
             image_size = 'original';
