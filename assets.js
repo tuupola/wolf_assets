@@ -124,9 +124,4 @@ jQuery(function($) {
             });
     }
 
-    /* Just a shortcut to also reposition when clicking a tab. */
-    $('#tabs-meta > a.tab').bind('click', function() {
-        $(window).trigger('resize');
-    });
-
 });
