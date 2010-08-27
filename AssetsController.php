@@ -41,7 +41,7 @@ class AssetsController extends PluginController
     function index() {
         assets_check_gd_support(); 
         $this->display('assets/views/index', array(
-            'image_array' => assets_latest(0, $_SESSION['assets_folder']),
+            'image_array' => assets_latest(0, 'thumbnail', $_SESSION['assets_folder']),
             'assets_folder_list' => unserialize(Setting::get('assets_folder_list'))
         ));
     }
@@ -219,7 +219,7 @@ class AssetsController extends PluginController
         redirect(get_url('plugin/assets'));         
     }
     
-    function latest($limit=0, $folder=null) {
+    function latest($limit=0, $image_size='thumbnail', $folder=null) {
         $folder = str_replace(':', '/', $folder);
         if (trim($folder)) {
             $_SESSION['assets_folder'] = $folder;            
@@ -232,13 +232,13 @@ class AssetsController extends PluginController
         } 
 
         $this->display('assets/views/latest', array(
-            'image_array' => assets_latest($limit, $folder)
+            'image_array' => assets_latest($limit, $image_size, $folder)
         ));
     }
    
 }
 
-function assets_latest($limit = 0, $folder='assets') {
+function assets_latest($limit = 0, $image_size = 'thumbnail', $folder = 'assets') {
     
     if ('all' == $folder) {
         $folder_list = unserialize(Setting::get('assets_folder_list'));
@@ -281,7 +281,12 @@ function assets_latest($limit = 0, $folder='assets') {
             $original = $folder . $path_parts['basename'];
             
             if (assets_is_image($path_parts['extension'])) {
-                $thumbnail  = $folder . $path_parts['filename'] . '.64c.' . $path_parts['extension'];                
+                /* Fix for TinyMCE and others who cannot handle thumbnails. */
+                if ('original' == $image_size) {
+                    $thumbnail  = $folder . $path_parts['filename'] . '.' . $path_parts['extension'];                    
+                } else {
+                    $thumbnail  = $folder . $path_parts['filename'] . '.64c.' . $path_parts['extension'];                    
+                }
             } else {
                 $thumbnail = assets_get_icon($path_parts['extension']);
             }
