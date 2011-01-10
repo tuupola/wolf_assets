@@ -1,4 +1,4 @@
-#pages .page {
+#part-1-content {
 	margin-left: 270px;
 	position: relative;
 	right: 270px;
@@ -73,7 +73,7 @@ form.new_asset {
   float: right;
 }
 
-#pages { position: relative; }
+#part-content { position: relative; }
 
 #content textarea {
     height: 292px;

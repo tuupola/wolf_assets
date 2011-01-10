@@ -17,7 +17,7 @@ Plugin::setInfos(array(
     'id'          => 'assets',
     'title'       => __('Asset Manager'),
     'description' => __('Mephisto style asset management.'),
-    'version'     => '0.5.0-dev3',
+    'version'     => '0.5.0-dev4',
     'license'     => 'MIT',
     'author'      => 'Mika Tuupola',
     'update_url'  => 'http://www.appelsiini.net/download/wolf-plugins.xml',
@@ -26,8 +26,8 @@ Plugin::setInfos(array(
 ));
 
 /* Stuff for backend. */
-if (strpos($_SERVER['PHP_SELF'], ADMIN_DIR . '/index.php')) {
-    Plugin::addController('assets', 'Assets');
+if (defined('CMS_BACKEND')) {
+    Plugin::addController('assets', 'Assets', 'admin_view', true);
     Observer::observe('view_backend_list_plugin', 'assets_inject_javascript');  
 }
 

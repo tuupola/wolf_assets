@@ -47,7 +47,7 @@ jQuery(function($) {
     /* When is Assets tab reload assets list according to pulldown. */
     $("select[name='assets_folder']").bind('change', function() {
         var folder = $(this).val().replace(/\//g, ':');
-        $("#assets_list").load(frog_root + '/admin/?/plugin/assets/latest/0/thumbnail/' + folder, null, function() {
+        $("#assets_list").load(frog_root + '/admin/plugin/assets/latest/0/thumbnail/' + folder, null, function() {
             /* Make assets draggable in assets tab. */
             $("#assets_list a").draggable({
                 revert: 'invalid',
@@ -67,7 +67,7 @@ jQuery(function($) {
     $("#trash_can").droppable({
         tolerance: 'touch',
         drop: function(event, ui) {
-		    var url = frog_root + '/admin/?/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
+		    var url = frog_root + '/admin/plugin/assets/file/delete' + $(ui.draggable.context).attr('href');
 		    $(ui.draggable.context).hide();
 		    $.getScript(url);
 		    $(this).attr('src', '/wolf/plugins/assets/images/trash.png');
@@ -82,7 +82,7 @@ jQuery(function($) {
 	    
     /* Run only when editing a page. */
     if ($('.page textarea').size()) {
-        
+                
         /* FIX IE of not allowing dropping links into textarea. */
         if ($.browser.msie) {
             document.ondragstart = function () { 
@@ -110,21 +110,38 @@ jQuery(function($) {
             $(':regex(id,^part_[0-9]*_filter)').trigger('change');
         });
         
-        $('#pages')
-            .prepend('<div id="assets_sidebar">'
+        //$('#pages')
+        $("#part-content")
+            .append('<div id="assets_sidebar">'
                      + '<div id="assets_folder"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>'
                      + '<div id="assets_page"><img src="/wolf/plugins/assets/images/indicator.gif" /></div>'
                      + '</div>');
                      
-        $('#assets_page').load(frog_root + '/admin/?/plugin/assets/latest/0/' + image_size);
+        $('#assets_page').load(frog_root + '/admin/plugin/assets/latest/0/' + image_size);
 
         $('#assets_folder')
-            .load(frog_root + '/admin/?/plugin/assets/pulldown', function() {
+            .load(frog_root + '/admin/plugin/assets/pulldown', function() {
                 $('select', this).bind('change', function() {
                     var folder = $(this).val().replace(/\//g, ':');
-                    $("#assets_page").load(frog_root + '/admin/?/plugin/assets/latest/0/' + image_size + '/' + folder);
+                    $("#assets_page").load(frog_root + '/admin/plugin/assets/latest/0/' + image_size + '/' + folder);
                 });
             });
     }
+    
+    /* When filter is changed away from TinyMCE reload thumbnails. */
+    $('.filter-selector').bind('wolfSwitchFilterOut', function(event, filtername, elem) {
+        if (filtername == 'tinymce') {
+            image_size = 'thumbnail';
+            $('#assets_page').load(frog_root + '/admin/plugin/assets/latest/0/' + image_size);
+        }
+    });
+
+    /* When filter is changed to TinyMCE reload thumbnails but use real size images. */
+    $('.filter-selector').bind('wolfSwitchFilterIn', function(event, filtername, elem) {
+        if (filtername == 'tinymce') {
+            image_size = 'original';
+            $('#assets_page').load(frog_root + '/admin/plugin/assets/latest/0/' + image_size);
+        }
+    });
 
 });
